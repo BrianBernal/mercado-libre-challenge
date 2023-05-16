@@ -1,13 +1,18 @@
 html {
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  font-family: "M PLUS Rounded 1c", sans-serif;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }
 
 h1,
 p {
   margin: 0;
-}
-
-* {
-  box-sizing: inherit;
 }
