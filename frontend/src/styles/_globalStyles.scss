@@ -1,3 +1,5 @@
+@import "./variables";
+
 html {
   box-sizing: border-box;
   font-family: "M PLUS Rounded 1c", sans-serif;
@@ -10,6 +12,7 @@ html {
 body {
   margin: 0;
   padding: 0;
+  background-color: $gray;
 }
 
 h1,
