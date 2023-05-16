@@ -5,12 +5,10 @@ const v1Router = require("./v1/routes");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// *** REMOVE ***
 app.get("/", (req, res) => {
-  res.send("<h2>It's Working!</h2>");
+  res.send(`<h1>Servidor en ${req.baseUrl} disponible!</h1>`);
 });
 
-// *** ADD ***
 app.use("/api/v1", v1Router);
 
 app.listen(PORT, () => {
