@@ -4,7 +4,7 @@
 import useFetchService from "./useFetchService";
 
 // services
-import { userService } from "../services/services";
+import { userService } from "../services/backendServices";
 
 const { fetchUser } = userService;
 

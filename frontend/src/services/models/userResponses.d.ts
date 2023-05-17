@@ -1,4 +1,4 @@
-interface IUser {
+interface IUserResponse {
   user_id: number;
   name: string;
   surname: string;
@@ -6,4 +6,4 @@ interface IUser {
   profile_image: string;
 }
 
-export type { IUser };
+export type { IUserResponse };
