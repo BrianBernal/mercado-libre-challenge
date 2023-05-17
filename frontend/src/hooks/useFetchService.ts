@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 
 const INITIAL_ERROR = "";
 
-type TUseFetchServiceOptions<TResponse> = {
+interface IUseFetchServiceOptions<TAadaptedResponse> {
   payload?: unknown;
-  defaultResponse: TResponse;
-};
+  defaultResponse: TAadaptedResponse;
+}
 
-function useFetchService<TResponse>(
-  service: (body: unknown) => Promise<TResponse>,
-  options: TUseFetchServiceOptions<TResponse>
+function useFetchService<TAadaptedResponse>(
+  service: (body: unknown) => Promise<TAadaptedResponse>,
+  options: IUseFetchServiceOptions<TAadaptedResponse>
 ) {
   const { defaultResponse, payload = {} } = options;
 

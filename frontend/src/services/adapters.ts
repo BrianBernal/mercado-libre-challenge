@@ -1,6 +1,8 @@
+// models
+import { IUser } from "../models/user";
 import { IUserResponse } from "./models/userResponses";
 
-function userAdapter(dataResponse: IUserResponse) {
+function userAdapter(dataResponse: IUserResponse): IUser {
   const { level, name, profile_image, surname, user_id } = dataResponse;
   try {
     const adaptedData = { level, name, profile_image, surname, user_id };
