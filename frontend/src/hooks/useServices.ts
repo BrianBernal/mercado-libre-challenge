@@ -9,7 +9,14 @@ import { userService } from "../services/services";
 const { fetchUser } = userService;
 
 function useGetUser() {
-  return useFetchService(fetchUser);
+  const initialState = {
+    user_id: 0,
+    name: "",
+    surname: "",
+    level: "",
+    profile_image: "",
+  };
+  return useFetchService(fetchUser, { defaultResponse: initialState });
 }
 
 export { useGetUser };

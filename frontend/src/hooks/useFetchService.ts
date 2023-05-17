@@ -1,37 +1,31 @@
 import { useEffect, useState } from "react";
 
-const INITIAL_ERROR = { error: "" };
+const INITIAL_ERROR = "";
 
-type response<T> = {
-  ok: boolean;
-  data: T | null;
+type TUseFetchServiceOptions<TResponse> = {
+  payload?: unknown;
+  defaultResponse: TResponse;
 };
 
-type TUseFetchServiceOptions<T> = {
-  payload?: T;
-  initialData?: T | null;
-};
-
-function useFetchService<T>(
-  service: (body: T) => Promise<T>,
-  options: TUseFetchServiceOptions<T> = {}
+function useFetchService<TResponse>(
+  service: (body: unknown) => Promise<TResponse>,
+  options: TUseFetchServiceOptions<TResponse>
 ) {
-  const { initialData = null, payload = {} as T } = options;
-  const INITIAL_RESPONSE: response<T> = { ok: false, data: initialData };
+  const { defaultResponse, payload = {} } = options;
 
   const [error, setError] = useState(INITIAL_ERROR);
-  const [response, setResponse] = useState(INITIAL_RESPONSE);
+  const [response, setResponse] = useState(defaultResponse);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     service(payload)
       .then((data) => {
-        setResponse({ ok: true, data });
+        setResponse(data);
         setError(INITIAL_ERROR);
       })
       .catch((error) => {
-        setResponse(INITIAL_RESPONSE);
-        setError({ error: error.message || "Service error" });
+        setResponse(defaultResponse);
+        setError(error.message || "Service error");
       })
       .finally(() => {
         setLoading(false);
