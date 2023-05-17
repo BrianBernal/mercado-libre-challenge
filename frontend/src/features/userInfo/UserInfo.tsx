@@ -8,8 +8,12 @@ function UserInfo() {
   const { response, loading, error } = useGetUser();
   const { name, surname, level, profile_image } = response;
 
-  if (loading) return <p>loading</p>;
-  if (error && !loading) return <p>Error loading data</p>;
+  if (loading) return <p className="user-container box">loading</p>;
+  if (error && !loading) {
+    return (
+      <p className="user-container box warning-text">Error loading data</p>
+    );
+  }
 
   return (
     <div className="user-container box">
