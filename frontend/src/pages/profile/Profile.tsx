@@ -1,4 +1,11 @@
+// components
+import UserInfo from "../../features/userInfo/UserInfo";
+
 function Profile() {
-  return <div>Informacion de perfil y lista de compras</div>;
+  return (
+    <div>
+      <UserInfo />
+    </div>
+  );
 }
 export default Profile;
