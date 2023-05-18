@@ -1,9 +1,9 @@
 // components
-import { useGetPurchases } from "../../hooks/serviceHooks";
+import { useGetPurchases } from "../../../hooks/serviceHooks";
 
-function PurchasesList() {
+function PurchasesList({ userId }: { userId: string }) {
   const { response, loading, error } = useGetPurchases({
-    userId: "1",
+    userId: userId,
     limit: 2,
     page: 1,
   });
