@@ -17,14 +17,26 @@ function fetchUser(): Promise<IUser> {
 
 interface IFetchPurchasesQueryParams {
   userId: string;
-  offset?: string;
+  limit?: number;
+  page?: number;
+}
+interface IParsedQueryParams {
+  userId: string;
   limit?: string;
+  page?: string;
 }
 function fetchPurchases(
   queryParams: IFetchPurchasesQueryParams
 ): Promise<IPurchaseList> {
+  const { userId, limit, page } = queryParams;
+  const parsedQueryParams: IParsedQueryParams = {
+    userId,
+  };
+  if (limit) parsedQueryParams.limit = limit.toString();
+  if (page) parsedQueryParams.page = page.toString();
+
   return fetchJsonFromBackend<IPurchaseResponse>(SERVICE_URL.purchases, {
-    queryParams: { ...queryParams },
+    queryParams: { ...parsedQueryParams },
   }).then(purchaseListAdapter);
 }
 

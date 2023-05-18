@@ -17,8 +17,8 @@ function useGetUser() {
 
 interface IFetchPurchasesQueryParams {
   userId: string;
-  offset?: string;
-  limit?: string;
+  page?: number;
+  limit?: number;
 }
 function useGetPurchases(queryParams: IFetchPurchasesQueryParams) {
   const initialState = {

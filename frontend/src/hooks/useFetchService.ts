@@ -9,8 +9,10 @@ function useFetchService<TAadaptedResponse>(
   const [error, setError] = useState(INITIAL_ERROR);
   const [response, setResponse] = useState(defaultResponse);
   const [loading, setLoading] = useState(true);
+  const [serviceDispatcher, setServiceDispatcher] = useState(false);
 
-  useEffect(() => {
+  const fetchService = () => {
+    setLoading(true);
     service
       .then((data) => {
         setResponse(data);
@@ -23,9 +25,17 @@ function useFetchService<TAadaptedResponse>(
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  };
 
-  return { response, error, loading };
+  const reFetch = () => {
+    setServiceDispatcher((prev) => !prev);
+  };
+
+  useEffect(() => {
+    fetchService();
+  }, [serviceDispatcher]);
+
+  return { response, error, loading, reFetch };
 }
 
 export default useFetchService;

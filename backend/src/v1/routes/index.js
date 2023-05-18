@@ -16,9 +16,12 @@ router.get("/user", (_req, res) => {
 });
 
 router.get("/purchases", (req, res) => {
-  const { userId } = req.query;
+  const { userId, ...rest } = req.query;
+  const limit = Number(rest.limit) || undefined;
+  const page = Number(rest.page) || undefined;
+
   userService
-    .getUserPurchases(userId)
+    .getUserPurchases(userId, limit, page)
     .then((purchases) => {
       return res.send(purchases);
     })
