@@ -25,4 +25,5 @@ interface IPurchaseResponse {
   limit: number;
   data: IPurchaseDetail[];
 }
-export type { IPurchaseResponse, ICurrency };
+
+export type { IPurchaseResponse };

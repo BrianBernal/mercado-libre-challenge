@@ -1,5 +1,5 @@
 import { JSONSchemaType } from "ajv";
-import { IPurchaseResponse } from "../models/purchasesResponses";
+import { IPurchaseResponse } from "../models/purchasesResponse";
 
 const purchaseListSchema: JSONSchemaType<IPurchaseResponse> = {
   type: "object",

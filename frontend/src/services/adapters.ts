@@ -4,7 +4,7 @@ import Ajv from "ajv";
 // models
 import { IPurchaseList } from "../models/purchase";
 import { IUser } from "../models/user";
-import { IPurchaseResponse } from "./models/purchasesResponses";
+import { IPurchaseResponse } from "./models/purchasesResponse";
 import { IUserResponse } from "./models/userResponses";
 
 // schemas

@@ -1,7 +1,11 @@
 // models
 import { IUserResponse } from "./models/userResponses";
 import { IPurchaseList } from "../models/purchase";
-import { IPurchaseResponse } from "./models/purchasesResponses";
+import { IPurchaseResponse } from "./models/purchasesResponse";
+import {
+  IFetchPurchasesQueryParams,
+  IParsedQueryParams,
+} from "./models/purchaseQueryParams";
 
 // utils
 import { SERVICE_URL, fetchJsonFromBackend } from "./httpUtils";
@@ -15,16 +19,6 @@ function fetchUser(): Promise<IUser> {
   );
 }
 
-interface IFetchPurchasesQueryParams {
-  userId: string;
-  limit?: number;
-  page?: number;
-}
-interface IParsedQueryParams {
-  userId: string;
-  limit?: string;
-  page?: string;
-}
 function fetchPurchases(
   queryParams: IFetchPurchasesQueryParams
 ): Promise<IPurchaseList> {
