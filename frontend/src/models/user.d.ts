@@ -1,9 +1,9 @@
 interface IUser {
-  user_id: number;
+  userId: string;
   name: string;
   surname: string;
   level: string;
-  profile_image: string;
+  profileImage: string;
 }
 
 export type { IUser };

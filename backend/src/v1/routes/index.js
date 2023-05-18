@@ -15,4 +15,16 @@ router.get("/user", (_req, res) => {
     });
 });
 
+router.get("/purchases", (req, res) => {
+  const { userId } = req.query;
+  userService
+    .getUserPurchases(userId)
+    .then((purchases) => {
+      return res.send(purchases);
+    })
+    .catch((error) => {
+      return res.status(400).send(error);
+    });
+});
+
 module.exports = router;

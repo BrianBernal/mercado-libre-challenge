@@ -1,5 +1,5 @@
 // hooks
-import { useGetUser } from "../../hooks/useServices";
+import { useGetUser } from "../../hooks/serviceHooks";
 
 // styles
 import "./userInfo.scss";
@@ -9,7 +9,7 @@ const FETCH_ERROR = "No se ha cargado el usuario.";
 
 function UserInfo() {
   const { response, loading, error } = useGetUser();
-  const { name, surname, level, profile_image } = response;
+  const { name, surname, level, profileImage } = response;
 
   if (loading) return <p className="user-container box">loading</p>;
   if (error && !loading) {
@@ -20,7 +20,7 @@ function UserInfo() {
     <div className="user-container box">
       <img
         className="user-container__user-img"
-        src={profile_image}
+        src={profileImage}
         alt={PROFILE_ALT_TEXT}
       />
       <p className="user-container__user-text">
