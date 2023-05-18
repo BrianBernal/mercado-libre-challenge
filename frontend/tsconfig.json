@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
@@ -20,9 +23,6 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": ["src"],
-  "paths": {
-    "@/*": ["src/*"]
-  },
   "types": ["node", "jest", "@testing-library/jest-dom", "vitest/globals"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
