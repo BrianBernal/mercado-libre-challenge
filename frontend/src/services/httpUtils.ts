@@ -67,5 +67,5 @@ async function fetchJsonFromBackend<T>(
   throw Error(responseErrorData?.error || "Resource not found.");
 }
 
-export { createFetchOptions, fetchJsonFromBackend };
-export { SERVICE_URL, BACKEND_HOSTNAME };
+export { createFetchOptions, fetchJsonFromBackend }; // methods
+export { SERVICE_URL, BACKEND_HOSTNAME }; // constants
