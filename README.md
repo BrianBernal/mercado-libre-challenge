@@ -1,83 +1,48 @@
-# Challenge técnico Mercadolibre
+# Mercado libre frontend (y algo de backend) challenge
 
-Este challenge consiste en **dos partes**, una de frontend y otra de backend. Dado que solemos trabajar en ambos mundos, te pedimos que lo tengas en cuenta a la hora de diseñar y desarrollar las distintas capas del proyecto.
+Este es un proyecto inició como [el template y sus respectivas indicaciones](https://github.com/mercadolibre/cx-frontend-challenge) aportadas por el equipo de Mercado Libre. En el desarrollo del ejercicio, el proyecto ha sido construido con el siguiente stack:
 
-## Entregable
-Este repositorio es un [Template Repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template), esperamos que lo uses como template para crear tu proyecto, que será el que nos enviarás cuando finalices el challenge con las siguientes condiciones:
-- Tu usuario debe ser el **owner**
-- Si no te especificaron una rama, deberás usar los archivos que están en `master`
-- El repositorio debe tener visibilidad `privada`
-- Una vez que finalices y nos compartas el challenge, te enviaremos los usuarios que van a revisar tu entregable para que los agregues
+- Reactjs
+- [Vite](https://vitejs.dev/)
+- Typescript
+- [pnpm](https://pnpm.io/)
+- [React router](https://reactrouter.com/en/main)
+- [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+- [raect-paginate](https://www.npmjs.com/package/react-paginate)
+- sass
+- [vitest-fetch-mock](https://vitest.dev/)
+- [avj](https://ajv.js.org/)
 
-## Tecnologías
+Al hacer un fork del proyecto, se recomienda tener instaladas las extensiones Eslint y Prettier en el editor de codigo usado. (originalmente vscode)
 
-Solemos usar React para nuestros frontends y NodeJS para nuestros backends (con Express), pero siéntete libre de hacerlo en otra tecnología de **Javascript** si así lo prefieres.
+## Instalación local
 
-## Frontend
+Este proyecto usa [pnpm](https://pnpm.io/7.x/installation) como administrador de paquetes. En ese sentido, si no tiene instalado pnpm, puede instalarlo de la siguiente manera:
 
-El frontend debe tener una ruta **/profile** en la cuál se podrá visualizar información general del usuario, un listado de sus compras, y se podrá acceder al detalle de cada una de estas.
+`npm install -g pnpm`
 
-- **Información general**
-  - Nombre completo del usuario
-  - Imagen del perfil
-  - Nivel de Mercado Puntos
-  - Restricciones
-- **Mis compras**
-  - Listado de compras, con id de compra, título del ítem, precio, cantidad y fecha de compra, y una forma para ver el detalle de esa compra
-  - Paginado
-- **Detalle de compra**
-  - Forma para volver al listado de compras
-  - Vendedor
-  - Id de la compra
-  - Título del ítem
-  - Imagen del ítem
-  - Fecha de compra
-  - Precio
-  - Cantidad
-  - Estado del pago
-  - Estado del envío
+1. Despues de estar seguro que ha instalado pnpm en su sitema debe ubicar en su consola sobre la carpeta backend
 
-## Backend
+   `cd backend`
 
-El backend debe tener los endpoints necesarios para servir la información que necesita el frontend. Los endpoints quedan a libre definición, pero debes usar el servicio llamado **`MercadolibreService`** que se encuentra en este repositorio, el cual expone los distintos mocks de información que vas a necesitar. No modifiques los archivos que te entregamos, solamente úsalos en tu solución.
+2. Y luego instalar las dependencias del backend
 
-- **MercadolibreService**
-  - getUser
-  - getUserRestrictions
-  - getUserPurchases
-  - getLevel
-  - getShipment
-  - getPayment
+   `pnpm install`
 
-## Puntos de evaluación
+3. Ahora es momento de iniciar el servicio del backend:
 
-Para este challenge nos interesa ver cómo aplicas todos tus conocimientos en torno a:
+   `npm run dev`
 
-- **Funcionalidad**
-- **Buenas prácticas de código**
-- **Formato de código**
-  - Handling de errores.
-  - Uso de estructuras de datos.
-  - Tests.
-  - Dependencias.
-  - Uso de las herramientas (como React, Express, CSS / Sass, etc).
-- **Estructura del proyecto**
-- **Escalabilidad**
+4. Ahora, se debe repetir el los pasos anteriores pero ubicados en la carpeta de frontend
 
-Nos interesan soluciones simples, técnicamente correctas, mantenibles y escalables. Es importante entender el alcance del proyecto y usar las herramientas adecuadas para resolver la consigna dada.
+   `cd ../frontend`
 
-Ten en cuenta que necesitamos instrucciones para levantar el proyecto, las mismas son ***indispensables*** para poder revisar y corregir tu aplicación. Esto incluye tanto los comandos a ejecutar como también el entorno de desarrollo que debemos tener (toda la información que consideres relevante sobre el stack requerido).
+5. Y luego instalar las dependencias del frontend
 
-> **Cuidado!**
->
-> Sin esta información, podríamos decidir ***no continuar*** con la revisión del challenge.
+   `pnpm install`
 
-### Tips para Frontend
+6. Finalmente se ejecuta el comando de inicio:
 
-- El diseño queda a libre interpretación, puedes diseñar lo que creas conveniente.
-- La información listada para cada sección es la requerida, no es necesario mostrar otras adicionales.
+   `npm run dev`
 
-### Tips para Backend
-
-- Toda la información que necesitas para las pantallas del frontend la puedes encontrar usando el servicio que proveemos. Si no es así, envíanos un mensaje cuanto antes!
-
+Finalmente, solo queda abrir en un navegador la url de localhost indicada en la consola.
