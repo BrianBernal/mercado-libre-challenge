@@ -3,11 +3,12 @@ import "@testing-library/jest-dom";
 import { render, waitFor } from "@testing-library/react";
 
 // components
-import UserInfo, { FETCH_ERROR, PROFILE_ALT_TEXT } from "./UserInfo";
+import UserInfo from "./UserInfo";
 
 // api
 import { SERVICE_URL } from "@/services/httpUtils";
 import { userResponseMock } from "@/setupTest/httpMockResponses";
+import { FETCH_ERROR, PROFILE_ALT_TEXT } from "./constants";
 
 beforeEach(() => {
   fetchMock.doMock();

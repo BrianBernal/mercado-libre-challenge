@@ -1,5 +1,5 @@
 // libraries
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // models
 import { IPurchaseList } from "@/models/purchase";
@@ -24,13 +24,12 @@ function useFetchPurchaseList(
   const [error, setError] = useState(INITIAL_ERROR);
   const [loading, setLoading] = useState(true);
 
-  const queryParams = {
-    userId,
-    page,
-    limit: itemsPerPage,
-  };
-
-  const fetchService = () => {
+  const fetchService = useCallback(() => {
+    const queryParams = {
+      userId,
+      page,
+      limit: itemsPerPage,
+    };
     setLoading(true);
     fetchPurchases(queryParams)
       .then((data) => {
@@ -43,11 +42,11 @@ function useFetchPurchaseList(
       .finally(() => {
         setLoading(false);
       });
-  };
+  }, [itemsPerPage, page, userId]);
 
   useEffect(() => {
     fetchService();
-  }, [page]);
+  }, [fetchService]);
 
   return { response, error, loading };
 }

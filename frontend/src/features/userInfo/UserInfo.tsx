@@ -6,9 +6,7 @@ import "./userInfo.scss";
 
 // components
 import PurchasesList from "./purchaseList/PurchaseList";
-
-const PROFILE_ALT_TEXT = "Profile Image";
-const FETCH_ERROR = "No se ha cargado el usuario.";
+import { FETCH_ERROR, PROFILE_ALT_TEXT } from "./constants";
 
 function UserInfo() {
   const { response, loading, error } = useFetchUser();
@@ -40,4 +38,3 @@ function UserInfo() {
 }
 
 export default UserInfo;
-export { PROFILE_ALT_TEXT, FETCH_ERROR };
