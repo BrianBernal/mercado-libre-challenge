@@ -1,0 +1,64 @@
+.card {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 700px;
+  margin: 10px;
+  background-color: #fff;
+}
+
+.card__content {
+  display: flex;
+}
+
+.card__image {
+  width: 300px;
+  height: auto;
+  object-fit: cover;
+}
+
+.card__details {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card__header {
+  margin-bottom: 10px;
+}
+
+.card__title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card__purchase-id {
+  font-size: 16px;
+  color: #999;
+}
+
+.card__info {
+  margin-bottom: 10px;
+}
+
+.card__date,
+.card__cost,
+.card__quantity {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.card__footer {
+  margin-top: auto;
+}
+
+.card__shipment-id,
+.card__payment-id {
+  font-size: 16px;
+  color: #999;
+  margin-bottom: 5px;
+}
