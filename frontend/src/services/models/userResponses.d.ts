@@ -6,4 +6,9 @@ interface IUserResponse {
   profile_image: string;
 }
 
-export type { IUserResponse };
+interface IUserRestrictionsResponse {
+  type: string;
+  message: string;
+}
+
+export type { IUserResponse, IUserRestrictionsResponse };

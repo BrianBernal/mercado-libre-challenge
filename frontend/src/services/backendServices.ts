@@ -1,5 +1,8 @@
 // models
-import { IUserResponse } from "./models/userResponses";
+import {
+  IUserResponse,
+  IUserRestrictionsResponse,
+} from "./models/userResponses";
 import { IPurchaseResponse } from "./models/purchasesResponse";
 import { IUser } from "@/models/user";
 import { IPurchaseList } from "@/models/purchase";
@@ -34,4 +37,10 @@ function fetchPurchases(
   }).then(purchaseListAdapter);
 }
 
-export { fetchUser, fetchPurchases };
+function fetchUserRestrictions(userId: string) {
+  return fetchJsonFromBackend<IUserRestrictionsResponse[]>(
+    `${SERVICE_URL.restrictions}/${userId}`
+  );
+}
+
+export { fetchUser, fetchPurchases, fetchUserRestrictions };

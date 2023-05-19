@@ -1,5 +1,6 @@
 // hooks
-import useFetchUser from "./useGetUser";
+import useFetchUser from "./hooks/useFetchUser";
+import useFetchUserRestrictions from "./hooks/useFetchUserRestrictions";
 
 // styles
 import "./userInfo.scss";
@@ -9,13 +10,25 @@ import PurchasesList from "./purchaseList/PurchaseList";
 import { FETCH_ERROR } from "./constants";
 
 function UserInfo() {
-  const { response, loading, error } = useFetchUser();
-  const { name, surname, level, profileImage, userId } = response;
+  const {
+    response: userResponse,
+    loading: userLoading,
+    error: userError,
+  } = useFetchUser();
+  const { response: restrictionsResponse, loading: restrictionsLoading } =
+    useFetchUserRestrictions(userResponse.userId);
+  const { name, surname, level, profileImage, userId } = userResponse;
 
-  if (loading) return <p className="profile-card box">loading</p>;
-  if (error && !loading) {
+  if (userLoading) return <p className="profile-card box">loading</p>;
+  if (userError && !userLoading) {
     return <p className="profile-card warning-text">{FETCH_ERROR}</p>;
   }
+
+  const restrictionMessage = restrictionsLoading
+    ? "loading"
+    : restrictionsResponse.message;
+
+  console.log(restrictionsResponse.message);
 
   return (
     <>
@@ -26,6 +39,9 @@ function UserInfo() {
             {name} {surname}
           </h3>
           <p className="profile-card__level">Nivel: {level}</p>
+          <p className="profile-card__level">
+            Restricciones: <i>{restrictionMessage}</i>
+          </p>
         </div>
       </div>
       <PurchasesList userId={userId} />

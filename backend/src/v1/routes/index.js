@@ -15,6 +15,14 @@ router.get("/user", (_req, res) => {
     });
 });
 
+router.get("/restrictions/:userId", (req, res) => {
+  const { userId } = req.params;
+  userService
+    .getUserRestrictions(userId)
+    .then((data) => res.send(data))
+    .catch(() => res.sendStatus(400));
+});
+
 router.get("/purchases", (req, res) => {
   const { userId, ...rest } = req.query;
   const limit = Number(rest.limit) || undefined;

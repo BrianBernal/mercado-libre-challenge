@@ -28,12 +28,12 @@ function PurchaseDetail({
         <div className="card__details">
           <div className="card__header">
             <h3 className="card__title">{sellerName}</h3>
-            <p className="card__purchase-id">Purchase ID: {purchaseId}</p>
+            <p className="card__purchase-id">ID: {purchaseId}</p>
           </div>
           <div className="card__info">
-            <p className="card__date">Date: {date}</p>
-            <p className="card__cost">Cost: {cost}</p>
-            <p className="card__quantity">Quantity: {quantity}</p>
+            <p className="card__date">Fecha: {date}</p>
+            <p className="card__cost">Costo: {cost}</p>
+            <p className="card__quantity">Cantidad: {quantity}</p>
           </div>
           <div className="card__footer">
             <p className="card__shipment-id">Shipment ID: {shipmentId}</p>
