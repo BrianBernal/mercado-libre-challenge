@@ -8,7 +8,7 @@ import UserInfo from "./UserInfo";
 // api
 import { SERVICE_URL } from "@/services/httpUtils";
 import { userResponseMock } from "@/setupTest/httpMockResponses";
-import { FETCH_ERROR, PROFILE_ALT_TEXT } from "./constants";
+import { FETCH_ERROR } from "./constants";
 
 beforeEach(() => {
   fetchMock.doMock();
@@ -32,8 +32,8 @@ describe("<UserInfo /> happy paths", () => {
 
     const { name, surname, level } = userResponseMock;
     expect(getByText(`${name} ${surname}`)).toBeInTheDocument();
-    expect(getByText(level)).toBeInTheDocument();
-    expect(getByAltText(PROFILE_ALT_TEXT)).toBeInTheDocument();
+    expect(getByText(`Nivel: ${level}`)).toBeInTheDocument();
+    expect(getByAltText(name)).toBeInTheDocument();
   });
 });
 
