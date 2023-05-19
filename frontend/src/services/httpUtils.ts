@@ -32,7 +32,8 @@ interface IFetchOptions {
 }
 async function fetchJsonFromBackend<T>(
   url: string,
-  fetchOptions: IFetchOptions = {}
+  fetchOptions: IFetchOptions = {},
+  abortController?: AbortController
 ): Promise<T> {
   let response;
   const { requestInit, queryParams } = fetchOptions;
@@ -40,10 +41,18 @@ async function fetchJsonFromBackend<T>(
     ? `${url}?${new URLSearchParams(queryParams).toString()}`
     : url;
 
+  const finalFetchOptions = abortController
+    ? { ...requestInit, signal: abortController.signal }
+    : requestInit;
+
   try {
-    response = await fetch(urlWithParams, requestInit);
+    response = await fetch(urlWithParams, finalFetchOptions);
   } catch (error) {
-    throw Error("Network error.");
+    if (abortController?.signal.aborted) {
+      throw Error("Aborted request.");
+    } else {
+      throw Error("Network error.");
+    }
   }
 
   if (response.ok) {

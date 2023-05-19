@@ -15,6 +15,8 @@ const INITIAL_STATE: IPurchaseList = {
   total: 0,
 };
 
+const INITIAL_ABORTER = new AbortController();
+
 function useFetchPurchaseList(
   userId: string,
   page: number,
@@ -23,6 +25,7 @@ function useFetchPurchaseList(
   const [response, setResponse] = useState(INITIAL_STATE);
   const [error, setError] = useState(INITIAL_ERROR);
   const [loading, setLoading] = useState(true);
+  const [abortController, setAborterController] = useState(INITIAL_ABORTER);
 
   const fetchService = useCallback(() => {
     const queryParams = {
@@ -31,7 +34,7 @@ function useFetchPurchaseList(
       limit: itemsPerPage,
     };
     setLoading(true);
-    fetchPurchases(queryParams)
+    fetchPurchases(queryParams, abortController)
       .then((data) => {
         setResponse(data);
         setError(INITIAL_ERROR);
@@ -42,13 +45,13 @@ function useFetchPurchaseList(
       .finally(() => {
         setLoading(false);
       });
-  }, [itemsPerPage, page, userId]);
+  }, [abortController, itemsPerPage, page, userId]);
 
   useEffect(() => {
     fetchService();
   }, [fetchService]);
 
-  return { response, error, loading };
+  return { response, error, loading, abortController, setAborterController };
 }
 
 export default useFetchPurchaseList;

@@ -32,11 +32,9 @@ const INITIAL_MODAL_DETAIL_VALUES: modalDetailState = {
 function PurchasesList({ userId }: { userId: string }) {
   const ITEMS_PER_PAGE = 3;
   const [currentPage, setCurrentPage] = useState(1);
-  const { response, loading, error } = useFetchPurchaseList(
-    userId,
-    currentPage,
-    ITEMS_PER_PAGE
-  );
+  const { response, loading, error, abortController, setAborterController } =
+    useFetchPurchaseList(userId, currentPage, ITEMS_PER_PAGE);
+
   const [modalDetailValue, setModalDetailValue] = useState(
     INITIAL_MODAL_DETAIL_VALUES
   );
@@ -56,6 +54,11 @@ function PurchasesList({ userId }: { userId: string }) {
   });
 
   const handlePageClick = (event: { selected: number }) => {
+    if (loading) {
+      abortController.abort();
+    }
+    const newAborter = new AbortController();
+    setAborterController(newAborter);
     const newPage = event.selected + 1;
     setCurrentPage(newPage);
   };

@@ -25,7 +25,8 @@ function fetchUser(): Promise<IUser> {
 }
 
 function fetchPurchases(
-  queryParams: IFetchPurchasesQueryParams
+  queryParams: IFetchPurchasesQueryParams,
+  abortController?: AbortController
 ): Promise<IPurchaseList> {
   const { userId, limit, page } = queryParams;
   const parsedQueryParams: IParsedQueryParams = {
@@ -34,9 +35,13 @@ function fetchPurchases(
   if (limit) parsedQueryParams.limit = limit.toString();
   if (page) parsedQueryParams.page = page.toString();
 
-  return fetchJsonFromBackend<IPurchaseResponse>(SERVICE_URL.purchases, {
-    queryParams: { ...parsedQueryParams },
-  }).then(purchaseListAdapter);
+  return fetchJsonFromBackend<IPurchaseResponse>(
+    SERVICE_URL.purchases,
+    {
+      queryParams: { ...parsedQueryParams },
+    },
+    abortController
+  ).then(purchaseListAdapter);
 }
 
 function fetchUserRestrictions(userId: string) {
