@@ -7,12 +7,8 @@ const userService = new MercadolibreService();
 router.get("/user", (_req, res) => {
   userService
     .getUser()
-    .then((user) => {
-      return res.send(user);
-    })
-    .catch((error) => {
-      return res.status(400).send(error);
-    });
+    .then((user) => res.send(user))
+    .catch((error) => res.status(400).send(error));
 });
 
 router.get("/restrictions/:userId", (req, res) => {
@@ -30,12 +26,8 @@ router.get("/purchases", (req, res) => {
 
   userService
     .getUserPurchases(userId, limit, page)
-    .then((purchases) => {
-      return res.send(purchases);
-    })
-    .catch((error) => {
-      return res.status(400).send(error);
-    });
+    .then((purchases) => res.send(purchases))
+    .catch((error) => res.status(400).send(error));
 });
 
 router.get("/shipmentState/:shipmentId", (req, res) => {
