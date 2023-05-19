@@ -8,11 +8,14 @@ import "./purchaseList.scss";
 // hooks
 import useFetchPurchaseList from "./useFetchPurchaseList";
 
+// utils
+import { formatNumber } from "@/utils/formatValues";
+
 // components
 import RowItem from "./rowItem/RowItem";
 
 function PurchasesList({ userId }: { userId: string }) {
-  const ITEMS_PER_PAGE = 4;
+  const ITEMS_PER_PAGE = 3;
   const [currentPage, setCurrentPage] = useState(1);
   const { response, loading } = useFetchPurchaseList(
     userId,
@@ -24,7 +27,7 @@ function PurchasesList({ userId }: { userId: string }) {
     const rowData = {
       id: purchaseId.toString(),
       name: title,
-      price: `${cost.currency} ${cost.total}`,
+      price: `${cost.currency} $ ${formatNumber(cost.total)}`,
       date: new Date(date),
       quantity: amount,
       imageUrl: image,
