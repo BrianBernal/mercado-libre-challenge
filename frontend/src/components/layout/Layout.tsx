@@ -6,7 +6,7 @@ import "./layout.scss";
 
 function Layout() {
   return (
-    <main className="container">
+    <main>
       <Outlet />
     </main>
   );

@@ -1,19 +1,32 @@
-.user-container {
-  min-width: 15rem;
-  max-width: 10rem;
-  min-height: 13rem;
-  padding: 1rem;
+.profile-card {
+  background-color: #f2f2f2;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  line-break: anywhere;
+  min-height: 7rem;
 
-  &__user-text {
-    margin: 1rem 0;
+  &__image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
   }
 
-  &__user-img {
-    width: 7rem;
-    border-radius: 100%;
+  &__details {
+    flex: 1;
+  }
+
+  &__name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  &__level {
+    font-size: 14px;
+    color: #888;
   }
 }

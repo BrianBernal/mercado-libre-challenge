@@ -8,18 +8,8 @@ import "./purchaseList.scss";
 // hooks
 import useFetchPurchaseList from "./useFetchPurchaseList";
 
-function Items({ currentItems }: { currentItems: string[] }) {
-  return (
-    <div className="items">
-      {currentItems &&
-        currentItems.map((item) => (
-          <div>
-            <h3>Item #{item}</h3>
-          </div>
-        ))}
-    </div>
-  );
-}
+// components
+import RowItem from "./rowItem/RowItem";
 
 function PurchasesList({ userId }: { userId: string }) {
   const ITEMS_PER_PAGE = 4;
@@ -30,17 +20,33 @@ function PurchasesList({ userId }: { userId: string }) {
     ITEMS_PER_PAGE
   );
   const { data, total } = response;
-  const items = data.map((purchase) => purchase.title);
+  const items = data.map(({ purchaseId, title, amount, cost, date, image }) => {
+    const rowData = {
+      id: purchaseId.toString(),
+      name: title,
+      price: `${cost.currency} ${cost.total}`,
+      date: new Date(date),
+      quantity: amount,
+      imageUrl: image,
+    };
+    return rowData;
+  });
 
   const handlePageClick = (event: { selected: number }) => {
     const newPage = event.selected + 1;
     setCurrentPage(newPage);
   };
 
+  const onDetail = () => {
+    console.log("I am Detail");
+  };
+
   return (
     <div>
-      {loading && "loading"}
-      <Items currentItems={items} />
+      {items.map((row) => {
+        return <RowItem key={row.id} {...row} detailAction={onDetail} />;
+      })}
+      {loading && <span className="loader-line" />}
       <ReactPaginate
         nextLabel="next >"
         onPageChange={handlePageClick}
@@ -48,17 +54,17 @@ function PurchasesList({ userId }: { userId: string }) {
         marginPagesDisplayed={2}
         pageCount={Math.ceil(total / ITEMS_PER_PAGE)}
         previousLabel="< previous"
-        pageClassName="page-item"
-        pageLinkClassName="page-link"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
-        breakLabel="..."
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
+        pageClassName="pagination__item"
+        pageLinkClassName="pagination__link"
+        previousClassName="pagination__item"
+        previousLinkClassName="pagination__link"
+        nextClassName="pagination__item"
+        nextLinkClassName="pagination__link"
+        breakClassName="pagination__item"
+        breakLinkClassName="pagination__link"
         containerClassName="pagination"
-        activeClassName="active"
+        activeClassName="pagination__item--active"
+        breakLabel="..."
         renderOnZeroPageCount={null}
       />
     </div>
