@@ -25,4 +25,4 @@ interface IPurchaseList {
   limit: number;
   data: IPurchaseDetail[];
 }
-export type { IPurchaseList };
+export type { IPurchaseList, IPurchaseDetail };

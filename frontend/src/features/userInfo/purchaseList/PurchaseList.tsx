@@ -2,6 +2,9 @@
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 
+// models
+import { IPurchaseDetail } from "@/models/purchase";
+
 // styles
 import "./purchaseList.scss";
 
@@ -13,14 +16,29 @@ import { formatNumber } from "@/utils/formatValues";
 
 // components
 import RowItem from "./rowItem/RowItem";
+import Modal from "@/components/modal/Modal";
+import PurchaseDetail from "./purchaseDetail/PurchaseDetail";
+
+interface modalDetailState {
+  isOpen: boolean;
+  selectedPurchase: IPurchaseDetail | null;
+}
+
+const INITIAL_MODAL_DETAIL_VALUES: modalDetailState = {
+  isOpen: false,
+  selectedPurchase: null,
+};
 
 function PurchasesList({ userId }: { userId: string }) {
   const ITEMS_PER_PAGE = 3;
   const [currentPage, setCurrentPage] = useState(1);
-  const { response, loading } = useFetchPurchaseList(
+  const { response, loading, error } = useFetchPurchaseList(
     userId,
     currentPage,
     ITEMS_PER_PAGE
+  );
+  const [modalDetailValue, setModalDetailValue] = useState(
+    INITIAL_MODAL_DETAIL_VALUES
   );
   const { data, total } = response;
   const items = data.map(({ purchaseId, title, amount, cost, date, image }) => {
@@ -34,18 +52,31 @@ function PurchasesList({ userId }: { userId: string }) {
     };
     return rowData;
   });
+  const { isOpen, selectedPurchase } = modalDetailValue;
 
   const handlePageClick = (event: { selected: number }) => {
     const newPage = event.selected + 1;
     setCurrentPage(newPage);
   };
 
-  const onDetail = () => {
-    console.log("I am Detail");
+  const onDetail = (id: string) => {
+    const newSelectedPurchase = data.find(
+      (purchase) => purchase.purchaseId.toString() === id
+    );
+    setModalDetailValue({
+      isOpen: true,
+      selectedPurchase: newSelectedPurchase || null,
+    });
+  };
+
+  const closeModal = () => {
+    setModalDetailValue(INITIAL_MODAL_DETAIL_VALUES);
   };
 
   return (
-    <div>
+    <>
+      <h1 className="title">Mis Compras</h1>
+      {error && !loading && <span className="box warning-text">{error}</span>}
       {items.map((row) => {
         return <RowItem key={row.id} {...row} detailAction={onDetail} />;
       })}
@@ -70,7 +101,23 @@ function PurchasesList({ userId }: { userId: string }) {
         breakLabel="..."
         renderOnZeroPageCount={null}
       />
-    </div>
+      <Modal isOpen={isOpen} onClose={closeModal}>
+        <div>
+          <PurchaseDetail
+            purchaseId={selectedPurchase?.purchaseId.toString() || ""}
+            imageSrc={selectedPurchase?.image || ""}
+            date={new Date(selectedPurchase?.date || "").getDate().toString()}
+            sellerName={selectedPurchase?.seller.nickname || ""}
+            quantity={selectedPurchase?.amount || 0}
+            shipmentId={selectedPurchase?.shipmentId.toString() || ""}
+            paymentId={selectedPurchase?.shipmentId.toString() || ""}
+            cost={`${selectedPurchase?.cost.currency} $ ${formatNumber(
+              selectedPurchase?.cost.total
+            )}`}
+          />
+        </div>
+      </Modal>
+    </>
   );
 }
 export default PurchasesList;
