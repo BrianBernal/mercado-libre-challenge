@@ -6,8 +6,8 @@ import { render, waitFor } from "@testing-library/react";
 import UserInfo, { FETCH_ERROR, PROFILE_ALT_TEXT } from "./UserInfo";
 
 // api
-import { userResponseMock } from "../../setupTest/httpMockResponses";
-import { SERVICE_URL } from "../../services/httpUtils";
+import { SERVICE_URL } from "@/services/httpUtils";
+import { userResponseMock } from "@/setupTest/httpMockResponses";
 
 beforeEach(() => {
   fetchMock.doMock();

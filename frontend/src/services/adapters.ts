@@ -2,10 +2,10 @@
 import Ajv from "ajv";
 
 // models
-import { IPurchaseList } from "../models/purchase";
-import { IUser } from "../models/user";
 import { IPurchaseResponse } from "./models/purchasesResponse";
 import { IUserResponse } from "./models/userResponses";
+import { IPurchaseList } from "@/models/purchase";
+import { IUser } from "@/models/user";
 
 // schemas
 import { userSchema } from "./schemas/user";

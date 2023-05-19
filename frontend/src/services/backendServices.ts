@@ -1,7 +1,8 @@
 // models
 import { IUserResponse } from "./models/userResponses";
-import { IPurchaseList } from "../models/purchase";
 import { IPurchaseResponse } from "./models/purchasesResponse";
+import { IUser } from "@/models/user";
+import { IPurchaseList } from "@/models/purchase";
 import {
   IFetchPurchasesQueryParams,
   IParsedQueryParams,
@@ -10,7 +11,6 @@ import {
 // utils
 import { SERVICE_URL, fetchJsonFromBackend } from "./httpUtils";
 import { purchaseListAdapter, userAdapter } from "./adapters";
-import { IUser } from "../models/user";
 
 // ARTICLE SERVICES
 function fetchUser(): Promise<IUser> {

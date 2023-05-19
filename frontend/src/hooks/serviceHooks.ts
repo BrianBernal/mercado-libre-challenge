@@ -2,7 +2,7 @@
 import useFetchService from "./useFetchService";
 
 // services
-import { fetchPurchases, fetchUser } from "../services/backendServices";
+import { fetchPurchases, fetchUser } from "@/services/backendServices";
 
 function useGetUser() {
   const initialState = {

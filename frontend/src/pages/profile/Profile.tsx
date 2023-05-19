@@ -1,5 +1,6 @@
 // components
-import UserInfo from "../../features/userInfo/UserInfo";
+
+import UserInfo from "@/features/userInfo/UserInfo";
 
 function Profile() {
   return (

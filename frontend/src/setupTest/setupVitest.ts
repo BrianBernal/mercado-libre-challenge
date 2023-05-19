@@ -3,7 +3,7 @@ import createFetchMock from "vitest-fetch-mock";
 import { vi } from "vitest";
 
 // services
-import { BACKEND_HOSTNAME, SERVICE_URL } from "../services/httpUtils";
+import { BACKEND_HOSTNAME, SERVICE_URL } from "@/services/httpUtils";
 
 // mock responses
 import { userResponseMock } from "./httpMockResponses";

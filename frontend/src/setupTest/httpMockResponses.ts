@@ -1,5 +1,5 @@
 // models
-import { IUserResponse } from "../services/models/userResponses";
+import { IUserResponse } from "@/services/models/userResponses";
 
 const userResponseMock: IUserResponse = {
   user_id: 1,

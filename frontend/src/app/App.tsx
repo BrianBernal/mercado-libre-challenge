@@ -2,7 +2,7 @@
 import "./App.scss";
 
 // components
-import Routes from "../routing/Routes";
+import Routes from "@/routing/Routes";
 
 function App() {
   return <Routes />;
