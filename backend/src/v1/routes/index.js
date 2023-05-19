@@ -38,4 +38,20 @@ router.get("/purchases", (req, res) => {
     });
 });
 
+router.get("/shipmentState/:shipmentId", (req, res) => {
+  const { shipmentId } = req.params;
+  userService
+    .getShipment(shipmentId)
+    .then((data) => res.send(data))
+    .catch(() => res.sendStatus(400));
+});
+
+router.get("/paymentState/:transactionId", (req, res) => {
+  const { transactionId } = req.params;
+  userService
+    .getPayment(transactionId)
+    .then((data) => res.send(data))
+    .catch(() => res.sendStatus(400));
+});
+
 module.exports = router;

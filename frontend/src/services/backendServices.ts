@@ -10,6 +10,8 @@ import {
   IFetchPurchasesQueryParams,
   IParsedQueryParams,
 } from "./models/purchaseQueryParams";
+import { IShipmentStatusResponse } from "./models/shipmentResponse";
+import { ITransactionStatusResponse } from "./models/paymentResponse";
 
 // utils
 import { SERVICE_URL, fetchJsonFromBackend } from "./httpUtils";
@@ -43,4 +45,22 @@ function fetchUserRestrictions(userId: string) {
   );
 }
 
-export { fetchUser, fetchPurchases, fetchUserRestrictions };
+function fetchShipmentStatus(transactionId: string) {
+  return fetchJsonFromBackend<IShipmentStatusResponse>(
+    `${SERVICE_URL.shipments}/${transactionId}`
+  );
+}
+
+function fetchPaymentStatus(transactionId: string) {
+  return fetchJsonFromBackend<ITransactionStatusResponse>(
+    `${SERVICE_URL.payment}/${transactionId}`
+  );
+}
+
+export {
+  fetchUser,
+  fetchPurchases,
+  fetchUserRestrictions,
+  fetchShipmentStatus,
+  fetchPaymentStatus,
+};

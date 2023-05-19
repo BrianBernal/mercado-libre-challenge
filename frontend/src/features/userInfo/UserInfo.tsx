@@ -25,7 +25,7 @@ function UserInfo() {
   }
 
   const restrictionMessage = restrictionsLoading
-    ? "loading"
+    ? "loading..."
     : restrictionsResponse.message;
 
   console.log(restrictionsResponse.message);

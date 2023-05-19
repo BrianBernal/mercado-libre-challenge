@@ -110,7 +110,7 @@ function PurchasesList({ userId }: { userId: string }) {
             sellerName={selectedPurchase?.seller.nickname || ""}
             quantity={selectedPurchase?.amount || 0}
             shipmentId={selectedPurchase?.shipmentId.toString() || ""}
-            paymentId={selectedPurchase?.shipmentId.toString() || ""}
+            transactionId={selectedPurchase?.transactionId.toString() || ""}
             cost={`${selectedPurchase?.cost.currency} $ ${formatNumber(
               selectedPurchase?.cost.total
             )}`}

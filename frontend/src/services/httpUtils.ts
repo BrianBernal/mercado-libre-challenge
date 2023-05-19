@@ -9,6 +9,8 @@ const SERVICE_URL = Object.freeze({
   users: `${BASE_URL}/user`,
   purchases: `${BASE_URL}/purchases`,
   restrictions: `${BASE_URL}/restrictions`,
+  shipments: `${BASE_URL}/shipmentState`,
+  payment: `${BASE_URL}/paymentState`,
 });
 
 type TMmethod = "POST" | "PATCH"; // only methods that should have body
