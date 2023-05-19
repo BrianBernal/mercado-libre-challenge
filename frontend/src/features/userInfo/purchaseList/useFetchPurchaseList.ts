@@ -38,12 +38,10 @@ function useFetchPurchaseList(
       .then((data) => {
         setResponse(data);
         setError(INITIAL_ERROR);
+        setLoading(false);
       })
       .catch((error) => {
         setError(error.message || "Service error");
-      })
-      .finally(() => {
-        setLoading(false);
       });
   }, [abortController, itemsPerPage, page, userId]);
 
