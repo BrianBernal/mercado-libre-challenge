@@ -28,8 +28,6 @@ function UserInfo() {
     ? "loading..."
     : restrictionsResponse.message;
 
-  console.log(restrictionsResponse.message);
-
   return (
     <>
       <div className="profile-card">
