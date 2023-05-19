@@ -40,7 +40,9 @@ function PurchasesList({ userId }: { userId: string }) {
   const [modalDetailValue, setModalDetailValue] = useState(
     INITIAL_MODAL_DETAIL_VALUES
   );
+  const { isOpen, selectedPurchase } = modalDetailValue;
   const { data, total } = response;
+
   const items = data.map(({ purchaseId, title, amount, cost, date, image }) => {
     const rowData = {
       id: purchaseId.toString(),
@@ -52,7 +54,6 @@ function PurchasesList({ userId }: { userId: string }) {
     };
     return rowData;
   });
-  const { isOpen, selectedPurchase } = modalDetailValue;
 
   const handlePageClick = (event: { selected: number }) => {
     const newPage = event.selected + 1;
@@ -102,20 +103,18 @@ function PurchasesList({ userId }: { userId: string }) {
         renderOnZeroPageCount={null}
       />
       <Modal isOpen={isOpen} onClose={closeModal}>
-        <div>
-          <PurchaseDetail
-            purchaseId={selectedPurchase?.purchaseId.toString() || ""}
-            imageSrc={selectedPurchase?.image || ""}
-            date={new Date(selectedPurchase?.date || "").getDate().toString()}
-            sellerName={selectedPurchase?.seller.nickname || ""}
-            quantity={selectedPurchase?.amount || 0}
-            shipmentId={selectedPurchase?.shipmentId.toString() || ""}
-            transactionId={selectedPurchase?.transactionId.toString() || ""}
-            cost={`${selectedPurchase?.cost.currency} $ ${formatNumber(
-              selectedPurchase?.cost.total
-            )}`}
-          />
-        </div>
+        <PurchaseDetail
+          purchaseId={selectedPurchase?.purchaseId.toString() || ""}
+          imageSrc={selectedPurchase?.image || ""}
+          date={new Date(selectedPurchase?.date || "").getDate().toString()}
+          sellerName={selectedPurchase?.seller.nickname || ""}
+          quantity={selectedPurchase?.amount || 0}
+          shipmentId={selectedPurchase?.shipmentId.toString() || ""}
+          transactionId={selectedPurchase?.transactionId.toString() || ""}
+          cost={`${selectedPurchase?.cost.currency} $ ${formatNumber(
+            selectedPurchase?.cost.total
+          )}`}
+        />
       </Modal>
     </>
   );
