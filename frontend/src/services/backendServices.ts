@@ -1,5 +1,7 @@
 // models
 import {
+  IShipmentStatusResponse,
+  ITransactionStatusResponse,
   IUserResponse,
   TUserRestrictionsResponse,
 } from "./models/userResponses";
@@ -9,13 +11,13 @@ import {
   IFetchPurchasesQueryParams,
   IParsedQueryParams,
 } from "./models/purchaseQueryParams";
-import { IShipmentStatusResponse } from "./models/shipmentResponse";
-import { ITransactionStatusResponse } from "./models/paymentResponse";
 
 // utils
 import { SERVICE_URL, fetchJsonFromBackend } from "./httpUtils";
 import {
   purchaseListAdapter,
+  shipmentStatusAdapter,
+  transactionStatusAdapter,
   userAdapter,
   userRestrictionsAdapter,
 } from "./adapters";
@@ -57,13 +59,13 @@ function fetchUserRestrictions(userId: string) {
 function fetchShipmentStatus(transactionId: string) {
   return fetchJsonFromBackend<IShipmentStatusResponse>(
     `${SERVICE_URL.shipments}/${transactionId}`
-  );
+  ).then(shipmentStatusAdapter);
 }
 
 function fetchPaymentStatus(transactionId: string) {
   return fetchJsonFromBackend<ITransactionStatusResponse>(
     `${SERVICE_URL.payment}/${transactionId}`
-  );
+  ).then(transactionStatusAdapter);
 }
 
 export {

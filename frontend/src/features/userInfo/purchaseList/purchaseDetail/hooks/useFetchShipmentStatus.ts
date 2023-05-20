@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 
 const INITIAL_ERROR = "";
 const INITIAL_STATE = {
-  shipment_id: "",
+  shipmentId: "",
   status: "",
 };
 
@@ -17,10 +17,7 @@ function useFetchShipmentStatus(shipmentId: string) {
     setLoading(true);
     fetchShipmentStatus(shipmentId)
       .then((data) => {
-        setResponse({
-          shipment_id: data.shipment_id.toString(),
-          status: data.status,
-        });
+        setResponse(data);
         setError(INITIAL_ERROR);
       })
       .catch((error) => {

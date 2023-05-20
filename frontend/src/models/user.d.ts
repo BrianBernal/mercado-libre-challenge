@@ -11,4 +11,14 @@ type TUserRestrictions = {
   message: string;
 }[];
 
-export type { IUser, TUserRestrictions };
+interface ITransactionStatus {
+  transactionId: string;
+  status: string;
+}
+
+interface IShipmentStatus {
+  shipmentId: string;
+  status: string;
+}
+
+export type { IUser, TUserRestrictions, ITransactionStatus, IShipmentStatus };

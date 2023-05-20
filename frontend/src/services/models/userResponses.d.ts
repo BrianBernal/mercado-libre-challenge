@@ -11,4 +11,19 @@ type TUserRestrictionsResponse = {
   message: string;
 }[];
 
-export type { IUserResponse, TUserRestrictionsResponse };
+interface ITransactionStatusResponse {
+  transaction_id: number | string;
+  status: string;
+}
+
+interface IShipmentStatusResponse {
+  shipment_id: number | string;
+  status: string;
+}
+
+export type {
+  IUserResponse,
+  TUserRestrictionsResponse,
+  ITransactionStatusResponse,
+  IShipmentStatusResponse,
+};

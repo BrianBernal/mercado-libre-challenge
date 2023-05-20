@@ -3,7 +3,7 @@ import { fetchPaymentStatus } from "@/services/backendServices";
 import { useCallback, useEffect, useState } from "react";
 
 const INITIAL_STATE = {
-  shipment_id: "",
+  transactionId: "",
   status: "",
 };
 const INITIAL_ERROR = "";
@@ -17,10 +17,7 @@ function useFetchPaymentStatus(transactionId: string) {
     setLoading(true);
     fetchPaymentStatus(transactionId)
       .then((data) => {
-        setResponse({
-          shipment_id: data.transaction_id.toString(),
-          status: data.status,
-        });
+        setResponse(data);
         setError(INITIAL_ERROR);
       })
       .catch((error) => {

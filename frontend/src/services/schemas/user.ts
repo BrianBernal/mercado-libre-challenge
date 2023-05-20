@@ -1,5 +1,7 @@
 import { JSONSchemaType } from "ajv";
 import {
+  IShipmentStatusResponse,
+  ITransactionStatusResponse,
   IUserResponse,
   TUserRestrictionsResponse,
 } from "../models/userResponses";
@@ -28,4 +30,27 @@ const userRestrictionsSchema: JSONSchemaType<TUserRestrictionsResponse> = {
   },
 };
 
-export { userSchema, userRestrictionsSchema };
+const transactionStatusSchema: JSONSchemaType<ITransactionStatusResponse> = {
+  type: "object",
+  properties: {
+    status: { type: "string" },
+    transaction_id: { type: ["string", "number"] },
+  },
+  required: ["status", "status"],
+};
+
+const shipmentStatusSchema: JSONSchemaType<IShipmentStatusResponse> = {
+  type: "object",
+  properties: {
+    status: { type: "string" },
+    shipment_id: { type: ["string", "number"] },
+  },
+  required: ["status", "status"],
+};
+
+export {
+  userSchema,
+  userRestrictionsSchema,
+  transactionStatusSchema,
+  shipmentStatusSchema,
+};

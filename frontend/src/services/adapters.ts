@@ -4,14 +4,25 @@ import Ajv from "ajv";
 // models
 import { IPurchaseResponse } from "./models/purchasesResponse";
 import {
+  IShipmentStatusResponse,
+  ITransactionStatusResponse,
   IUserResponse,
   TUserRestrictionsResponse,
 } from "./models/userResponses";
 import { IPurchaseList } from "@/models/purchase";
-import { IUser, TUserRestrictions } from "@/models/user";
+import {
+  IShipmentStatus,
+  ITransactionStatus,
+  IUser,
+  TUserRestrictions,
+} from "@/models/user";
 
 // schemas
-import { userRestrictionsSchema, userSchema } from "./schemas/user";
+import {
+  shipmentStatusSchema,
+  userRestrictionsSchema,
+  userSchema,
+} from "./schemas/user";
 import { purchaseListSchema } from "./schemas/purchaseList";
 
 const ajv = new Ajv();
@@ -60,4 +71,34 @@ function userRestrictionsAdapter(
   return dataResponse;
 }
 
-export { userAdapter, purchaseListAdapter, userRestrictionsAdapter };
+function shipmentStatusAdapter(
+  dataResponse: IShipmentStatusResponse
+): IShipmentStatus {
+  const isValid = ajv.compile(shipmentStatusSchema)(dataResponse);
+  if (!isValid) throw Error("Error adapting the api response");
+
+  return {
+    shipmentId: dataResponse.shipment_id.toString(),
+    status: dataResponse.status,
+  };
+}
+
+function transactionStatusAdapter(
+  dataResponse: ITransactionStatusResponse
+): ITransactionStatus {
+  const isValid = ajv.compile(shipmentStatusSchema)(dataResponse);
+  if (!isValid) throw Error("Error adapting the api response");
+
+  return {
+    transactionId: dataResponse.transaction_id.toString(),
+    status: dataResponse.status,
+  };
+}
+
+export {
+  userAdapter,
+  purchaseListAdapter,
+  userRestrictionsAdapter,
+  shipmentStatusAdapter,
+  transactionStatusAdapter,
+};
