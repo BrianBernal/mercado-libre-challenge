@@ -9,13 +9,13 @@ const purchaseListSchema: JSONSchemaType<IPurchaseResponse> = {
       items: {
         type: "object",
         properties: {
-          purchase_id: { type: "number" },
+          purchase_id: { type: ["number", "string"] },
           title: { type: "string" },
           amount: { type: "number" },
           date: { type: "string" },
           image: { type: "string" },
-          transaction_id: { type: "number" },
-          shipment_id: { type: "integer" },
+          transaction_id: { type: ["number", "string"] },
+          shipment_id: { type: ["number", "string"] },
           cost: {
             type: "object",
             properties: {
@@ -27,7 +27,7 @@ const purchaseListSchema: JSONSchemaType<IPurchaseResponse> = {
           seller: {
             type: "object",
             properties: {
-              id: { type: "number" },
+              id: { type: ["number", "string"] },
               nickname: { type: "string" },
             },
             required: ["id", "nickname"],

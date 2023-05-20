@@ -2,9 +2,6 @@
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 
-// models
-import { IPurchaseDetail } from "@/models/purchase";
-
 // styles
 import "./purchaseList.scss";
 
@@ -13,25 +10,16 @@ import useFetchPurchaseList from "./useFetchPurchaseList";
 
 // utils
 import { formatNumber } from "@/utils/formatValues";
+import { INITIAL_MODAL_DETAIL_VALUES, ITEMS_PER_PAGE } from "./constants";
 
 // components
 import RowItem from "./rowItem/RowItem";
 import Modal from "@/components/modal/Modal";
 import PurchaseDetail from "./purchaseDetail/PurchaseDetail";
 
-interface modalDetailState {
-  isOpen: boolean;
-  selectedPurchase: IPurchaseDetail | null;
-}
-
-const INITIAL_MODAL_DETAIL_VALUES: modalDetailState = {
-  isOpen: false,
-  selectedPurchase: null,
-};
-
 function PurchasesList({ userId }: { userId: string }) {
-  const ITEMS_PER_PAGE = 3;
   const [currentPage, setCurrentPage] = useState(1);
+
   const { response, loading, error, abortController, setAborterController } =
     useFetchPurchaseList(userId, currentPage, ITEMS_PER_PAGE);
 
@@ -69,7 +57,8 @@ function PurchasesList({ userId }: { userId: string }) {
     );
     setModalDetailValue({
       isOpen: true,
-      selectedPurchase: newSelectedPurchase || null,
+      selectedPurchase:
+        newSelectedPurchase || INITIAL_MODAL_DETAIL_VALUES.selectedPurchase,
     });
   };
 
@@ -107,15 +96,15 @@ function PurchasesList({ userId }: { userId: string }) {
       />
       <Modal isOpen={isOpen} onClose={closeModal}>
         <PurchaseDetail
-          purchaseId={selectedPurchase?.purchaseId.toString() || ""}
-          imageSrc={selectedPurchase?.image || ""}
-          date={new Date(selectedPurchase?.date || "").getDate().toString()}
-          sellerName={selectedPurchase?.seller.nickname || ""}
-          quantity={selectedPurchase?.amount || 0}
-          shipmentId={selectedPurchase?.shipmentId.toString() || ""}
-          transactionId={selectedPurchase?.transactionId.toString() || ""}
-          cost={`${selectedPurchase?.cost.currency} $ ${formatNumber(
-            selectedPurchase?.cost.total
+          purchaseId={selectedPurchase.purchaseId}
+          imageSrc={selectedPurchase.image}
+          date={new Date(selectedPurchase.date).getDate().toString()}
+          sellerName={selectedPurchase.seller.nickname}
+          quantity={selectedPurchase.amount}
+          shipmentId={selectedPurchase.shipmentId}
+          transactionId={selectedPurchase.transactionId}
+          cost={`${selectedPurchase.cost.currency} $ ${formatNumber(
+            selectedPurchase.cost.total
           )}`}
         />
       </Modal>

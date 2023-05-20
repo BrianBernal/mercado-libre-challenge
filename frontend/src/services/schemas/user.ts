@@ -1,10 +1,13 @@
 import { JSONSchemaType } from "ajv";
-import { IUserResponse } from "../models/userResponses";
+import {
+  IUserResponse,
+  TUserRestrictionsResponse,
+} from "../models/userResponses";
 
 const userSchema: JSONSchemaType<IUserResponse> = {
   type: "object",
   properties: {
-    user_id: { type: "integer" },
+    user_id: { type: ["number", "string"] },
     name: { type: "string" },
     surname: { type: "string" },
     level: { type: "string" },
@@ -13,4 +16,16 @@ const userSchema: JSONSchemaType<IUserResponse> = {
   required: ["user_id", "name", "surname", "level", "profile_image"],
 };
 
-export { userSchema };
+const userRestrictionsSchema: JSONSchemaType<TUserRestrictionsResponse> = {
+  type: "array",
+  items: {
+    type: "object",
+    properties: {
+      type: { type: "string" },
+      message: { type: "string" },
+    },
+    required: ["message", "type"],
+  },
+};
+
+export { userSchema, userRestrictionsSchema };

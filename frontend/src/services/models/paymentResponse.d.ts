@@ -1,6 +1,6 @@
 interface ITransactionStatusResponse {
+  transaction_id: number | string;
   status: string;
-  transaction_id: number;
 }
 
 export type { ITransactionStatusResponse };

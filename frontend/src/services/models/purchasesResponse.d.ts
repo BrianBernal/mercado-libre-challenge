@@ -3,20 +3,20 @@ interface ICost {
   currency: string;
 }
 interface ISeller {
-  id: number;
+  id: number | string;
   nickname: string;
 }
 
 interface IPurchaseDetail {
-  purchase_id: number;
   title: string;
   cost: ICost;
   amount: number;
   date: string;
   image: string;
   seller: ISeller;
-  transaction_id: number;
-  shipment_id: number;
+  purchase_id: number | string;
+  transaction_id: number | string;
+  shipment_id: number | string;
 }
 
 interface IPurchaseResponse {

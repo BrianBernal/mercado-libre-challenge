@@ -6,4 +6,9 @@ interface IUser {
   profileImage: string;
 }
 
-export type { IUser };
+type TUserRestrictions = {
+  type: string;
+  message: string;
+}[];
+
+export type { IUser, TUserRestrictions };

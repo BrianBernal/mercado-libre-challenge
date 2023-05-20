@@ -1,10 +1,9 @@
 // models
 import {
   IUserResponse,
-  IUserRestrictionsResponse,
+  TUserRestrictionsResponse,
 } from "./models/userResponses";
 import { IPurchaseResponse } from "./models/purchasesResponse";
-import { IUser } from "@/models/user";
 import { IPurchaseList } from "@/models/purchase";
 import {
   IFetchPurchasesQueryParams,
@@ -15,10 +14,14 @@ import { ITransactionStatusResponse } from "./models/paymentResponse";
 
 // utils
 import { SERVICE_URL, fetchJsonFromBackend } from "./httpUtils";
-import { purchaseListAdapter, userAdapter } from "./adapters";
+import {
+  purchaseListAdapter,
+  userAdapter,
+  userRestrictionsAdapter,
+} from "./adapters";
 
 // ARTICLE SERVICES
-function fetchUser(): Promise<IUser> {
+function fetchUser() {
   return fetchJsonFromBackend<IUserResponse>(SERVICE_URL.users).then(
     userAdapter
   );
@@ -32,6 +35,7 @@ function fetchPurchases(
   const parsedQueryParams: IParsedQueryParams = {
     userId,
   };
+
   if (limit) parsedQueryParams.limit = limit.toString();
   if (page) parsedQueryParams.page = page.toString();
 
@@ -45,9 +49,9 @@ function fetchPurchases(
 }
 
 function fetchUserRestrictions(userId: string) {
-  return fetchJsonFromBackend<IUserRestrictionsResponse[]>(
+  return fetchJsonFromBackend<TUserRestrictionsResponse>(
     `${SERVICE_URL.restrictions}/${userId}`
-  );
+  ).then(userRestrictionsAdapter);
 }
 
 function fetchShipmentStatus(transactionId: string) {

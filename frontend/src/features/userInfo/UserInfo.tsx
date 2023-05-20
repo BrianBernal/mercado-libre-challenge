@@ -26,7 +26,10 @@ function UserInfo() {
 
   const restrictionMessage = restrictionsLoading
     ? "loading..."
-    : restrictionsResponse.message;
+    : restrictionsResponse.map((restriction) => {
+        const className = restriction.type === "warning" ? "warning-text" : "";
+        return <span className={className}>{restriction.message}. </span>;
+      });
 
   return (
     <>

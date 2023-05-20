@@ -4,10 +4,12 @@ import { useCallback, useEffect, useState } from "react";
 // services
 import { fetchUserRestrictions } from "@/services/backendServices";
 
-const INITIAL_STATE = {
-  type: "",
-  message: "Ninguna",
-};
+const INITIAL_STATE = [
+  {
+    type: "",
+    message: "Ninguna",
+  },
+];
 const INITIAL_ERROR = "";
 
 function useGetUserRestrictions(userId: string) {
@@ -19,7 +21,7 @@ function useGetUserRestrictions(userId: string) {
     setLoading(true);
     fetchUserRestrictions(userId)
       .then((data) => {
-        setResponse(data[0]);
+        setResponse(data);
         setError(INITIAL_ERROR);
       })
       .catch((error) => {

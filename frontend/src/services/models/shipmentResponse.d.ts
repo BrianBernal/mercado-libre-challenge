@@ -1,5 +1,5 @@
 interface IShipmentStatusResponse {
-  shipment_id: number;
+  shipment_id: number | string;
   status: string;
 }
 
