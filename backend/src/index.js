@@ -1,9 +1,10 @@
 const express = require("express");
-// *** ADD ***
+require("dotenv").config();
+
 const v1Router = require("./v1/routes");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 function allowCrossDomain(_req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");

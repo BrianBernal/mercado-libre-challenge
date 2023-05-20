@@ -3,7 +3,7 @@ import createFetchMock from "vitest-fetch-mock";
 import { vi } from "vitest";
 
 // services
-import { BACKEND_HOSTNAME, SERVICE_URL } from "@/services/httpUtils";
+import { BACKEND_BASE_URL, SERVICE_URL } from "@/services/httpUtils";
 
 // mock responses
 import { userResponseMock } from "./httpMockResponses";
@@ -14,8 +14,8 @@ const responses = {
   [SERVICE_URL.users]: JSON.stringify(userResponseMock),
 };
 
-fetchMocker.mockIf(BACKEND_HOSTNAME, (req) => {
-  console.log("url mock fetched:", req.url);
+fetchMocker.mockIf(BACKEND_BASE_URL, (req) => {
+  console.log("mocked url:", req.url);
 
   if (req.url.endsWith(SERVICE_URL.users) && req.method === "GET") {
     return responses[SERVICE_URL.users];

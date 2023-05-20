@@ -1,16 +1,12 @@
-const BACKEND_PORT = import.meta.env.BACKEND_URL || 3000;
-const BACKEND_HOST_URL = import.meta.env.BACKEND_HOST_URL || "http://localhost";
-const BACKEND_HOSTNAME =
-  import.meta.env.BACKEND_URL || `${BACKEND_HOST_URL}:${BACKEND_PORT}`;
-const API_VERSION = "/api/v1";
-const BASE_URL = `${BACKEND_HOSTNAME}${API_VERSION}`;
+const BACKEND_BASE_URL =
+  import.meta.env.VITE_BACKEND_BASE_URL || "http://localhost:4000/api/v1";
 
 const SERVICE_URL = Object.freeze({
-  users: `${BASE_URL}/user`,
-  purchases: `${BASE_URL}/purchases`,
-  restrictions: `${BASE_URL}/restrictions`,
-  shipments: `${BASE_URL}/shipmentState`,
-  payment: `${BASE_URL}/paymentState`,
+  users: `${BACKEND_BASE_URL}/user`,
+  purchases: `${BACKEND_BASE_URL}/purchases`,
+  restrictions: `${BACKEND_BASE_URL}/restrictions`,
+  shipments: `${BACKEND_BASE_URL}/shipmentState`,
+  payment: `${BACKEND_BASE_URL}/paymentState`,
 });
 
 type TMmethod = "POST" | "PATCH"; // only methods that should have body
@@ -80,4 +76,4 @@ async function fetchJsonFromBackend<T>(
 }
 
 export { createFetchOptions, fetchJsonFromBackend }; // methods
-export { SERVICE_URL, BACKEND_HOSTNAME }; // constants
+export { SERVICE_URL, BACKEND_BASE_URL }; // constants
