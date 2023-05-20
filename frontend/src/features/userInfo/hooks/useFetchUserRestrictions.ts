@@ -1,17 +1,14 @@
 // libraries
 import { useCallback, useEffect, useState } from "react";
 
-// models
-// import { IUser } from "@/models/user";
-
 // services
 import { fetchUserRestrictions } from "@/services/backendServices";
 
-const INITIAL_ERROR = "";
 const INITIAL_STATE = {
   type: "",
   message: "Ninguna",
 };
+const INITIAL_ERROR = "";
 
 function useGetUserRestrictions(userId: string) {
   const [response, setResponse] = useState(INITIAL_STATE);

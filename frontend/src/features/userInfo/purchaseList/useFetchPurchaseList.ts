@@ -7,14 +7,13 @@ import { IPurchaseList } from "@/models/purchase";
 // services
 import { fetchPurchases } from "@/services/backendServices";
 
-const INITIAL_ERROR = "";
 const INITIAL_STATE: IPurchaseList = {
   data: [],
   limit: 0,
   offset: 0,
   total: 0,
 };
-
+const INITIAL_ERROR = "";
 const INITIAL_ABORTER = new AbortController();
 
 function useFetchPurchaseList(

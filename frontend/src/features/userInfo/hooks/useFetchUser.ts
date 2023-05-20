@@ -7,7 +7,6 @@ import { IUser } from "@/models/user";
 // services
 import { fetchUser } from "@/services/backendServices";
 
-const INITIAL_ERROR = "";
 const INITIAL_STATE = {
   userId: "0",
   name: "",
@@ -15,6 +14,7 @@ const INITIAL_STATE = {
   level: "",
   profileImage: "",
 };
+const INITIAL_ERROR = "";
 
 function useFetchUser() {
   const [response, setResponse] = useState<IUser>(INITIAL_STATE);

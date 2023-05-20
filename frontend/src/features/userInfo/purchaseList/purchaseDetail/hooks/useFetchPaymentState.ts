@@ -2,11 +2,11 @@
 import { fetchPaymentStatus } from "@/services/backendServices";
 import { useCallback, useEffect, useState } from "react";
 
-const INITIAL_ERROR = "";
 const INITIAL_STATE = {
   shipment_id: "",
   status: "",
 };
+const INITIAL_ERROR = "";
 
 function useFetchPaymentStatus(transactionId: string) {
   const [response, setResponse] = useState(INITIAL_STATE);
