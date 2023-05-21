@@ -3,20 +3,13 @@ import "@testing-library/jest-dom";
 import { render, waitFor } from "@testing-library/react";
 
 // components
-import UserInfo from "./UserInfo";
+import UserInfo from "../UserInfo";
 
 // api
 import { SERVICE_URL } from "@/services/httpUtils";
-import { userResponseMock } from "@/setupTest/httpMockResponses";
-import { FETCH_ERROR } from "./constants";
-
-beforeEach(() => {
-  fetchMock.doMock();
-});
-
-afterEach(() => {
-  fetchMock.dontMock();
-});
+import { FETCH_ERROR } from "../constants";
+import { fetchMocker } from "@/setupTest/setupVitest";
+import { userMockFetch } from "./userMockFetch";
 
 describe("<UserInfo /> happy paths", () => {
   it("should render user Info", () => {
@@ -24,10 +17,11 @@ describe("<UserInfo /> happy paths", () => {
   });
 
   it("should fetch user info data and paint it", async () => {
+    const userResponseMock = userMockFetch();
     const { getByText, getByAltText } = render(<UserInfo />);
 
     await waitFor(() => {
-      expect(fetchMock.isMocking(SERVICE_URL.users)).toBeTruthy();
+      expect(fetchMocker.isMocking(SERVICE_URL.users)).toBeTruthy();
     });
 
     const { name, surname, level } = userResponseMock;
@@ -38,13 +32,14 @@ describe("<UserInfo /> happy paths", () => {
 });
 
 describe("<UserInfo /> UNhappy paths", () => {
+  fetchMocker.mockReject();
   it("should render even when is not fetching data correctly", () => {
-    fetchMock.dontMock();
+    fetchMocker.mockReject();
     render(<UserInfo />);
   });
 
   it("Should print error message when is not fetching data correctly", async () => {
-    fetchMock.dontMock();
+    fetchMocker.mockReject();
     const { getByText } = render(<UserInfo />);
 
     await waitFor(() => {
