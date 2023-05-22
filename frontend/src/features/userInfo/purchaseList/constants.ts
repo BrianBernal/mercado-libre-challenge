@@ -24,6 +24,5 @@ const INITIAL_MODAL_DETAIL_VALUES: modalDetailState = {
     },
   },
 };
-const ITEMS_PER_PAGE = 3;
 
-export { INITIAL_MODAL_DETAIL_VALUES, ITEMS_PER_PAGE };
+export { INITIAL_MODAL_DETAIL_VALUES };

@@ -12,4 +12,12 @@ function formatNumber(
   return format(valueAsNumber);
 }
 
-export { formatNumber };
+function validatePositiveIntegers(numbers: Array<unknown>) {
+  for (const num of numbers) {
+    if (!Number.isInteger(num)) return false;
+    if (Number(num) < 0) return false;
+  }
+  return true;
+}
+
+export { formatNumber, validatePositiveIntegers };

@@ -10,18 +10,24 @@ import useFetchPurchaseList from "./useFetchPurchaseList";
 
 // utils
 import { formatNumber } from "@/utils/formatValues";
-import { INITIAL_MODAL_DETAIL_VALUES, ITEMS_PER_PAGE } from "./constants";
+import { INITIAL_MODAL_DETAIL_VALUES } from "./constants";
 
 // components
 import RowItem from "./rowItem/RowItem";
 import Modal from "@/components/modal/Modal";
 import PurchaseDetail from "./purchaseDetail/PurchaseDetail";
 
-function PurchasesList({ userId }: { userId: string }) {
+function PurchaseList({
+  userId,
+  itemsPerPage,
+}: {
+  userId: string;
+  itemsPerPage: number;
+}) {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { response, loading, error, abortController, setAborterController } =
-    useFetchPurchaseList(userId, currentPage, ITEMS_PER_PAGE);
+    useFetchPurchaseList(userId, currentPage, itemsPerPage);
 
   const [modalDetailValue, setModalDetailValue] = useState(
     INITIAL_MODAL_DETAIL_VALUES
@@ -73,14 +79,17 @@ function PurchasesList({ userId }: { userId: string }) {
       {items.map((row) => {
         return <RowItem key={row.id} {...row} detailAction={onDetail} />;
       })}
+      {!loading && items.length < 1 && !error && (
+        <h2>Aun no tienes compras.</h2>
+      )}
       {loading && <span className="loader-line" />}
       <ReactPaginate
-        nextLabel="next >"
+        nextLabel="siguiente >"
+        previousLabel="< anterior"
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}
         marginPagesDisplayed={2}
-        pageCount={Math.ceil(total / ITEMS_PER_PAGE)}
-        previousLabel="< previous"
+        pageCount={Math.ceil(total / itemsPerPage)}
         pageClassName="pagination__item"
         pageLinkClassName="pagination__link"
         previousClassName="pagination__item"
@@ -111,4 +120,4 @@ function PurchasesList({ userId }: { userId: string }) {
     </>
   );
 }
-export default PurchasesList;
+export default PurchaseList;

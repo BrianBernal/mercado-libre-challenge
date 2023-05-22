@@ -6,6 +6,7 @@ import { IPurchaseList } from "@/models/purchase";
 
 // services
 import { fetchPurchases } from "@/services/backendServices";
+import { validatePositiveIntegers } from "@/utils/formatValues";
 
 const INITIAL_STATE: IPurchaseList = {
   data: [],
@@ -15,6 +16,8 @@ const INITIAL_STATE: IPurchaseList = {
 };
 const INITIAL_ERROR = "";
 const INITIAL_ABORTER = new AbortController();
+const DEFAULT_ERROR =
+  "Lo sentimos, no es posible cargar tus compras. Intenta mas tarde";
 
 function useFetchPurchaseList(
   userId: string,
@@ -39,16 +42,23 @@ function useFetchPurchaseList(
         setError(INITIAL_ERROR);
         setLoading(false);
       })
-      .catch((error) => {
-        setError(error.message || "Service error");
+      .catch(() => {
+        setError(DEFAULT_ERROR);
       });
   }, [abortController, itemsPerPage, page, userId]);
 
   useEffect(() => {
-    fetchService();
-  }, [fetchService]);
+    const arePositiveIntegers = validatePositiveIntegers([page, itemsPerPage]);
+    if (!arePositiveIntegers) {
+      setError(DEFAULT_ERROR);
+      setLoading(false);
+    } else {
+      fetchService();
+    }
+  }, [fetchService, itemsPerPage, page]);
 
   return { response, error, loading, abortController, setAborterController };
 }
 
 export default useFetchPurchaseList;
+export { DEFAULT_ERROR };

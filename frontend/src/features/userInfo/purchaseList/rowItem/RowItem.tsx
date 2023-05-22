@@ -35,7 +35,7 @@ function RowItem({
         <div className="row-item__date">{date.toLocaleString()}</div>
         <div className="row-item__quantity">Cantidad: {quantity}</div>
         <button className="row-item__button" onClick={buttonHandler}>
-          See Detail
+          Ver detalle
         </button>
       </div>
     </div>

@@ -6,7 +6,7 @@ import useFetchUserRestrictions from "./hooks/useFetchUserRestrictions";
 import "./userInfo.scss";
 
 // components
-import PurchasesList from "./purchaseList/PurchaseList";
+import PurchaseList from "./purchaseList/PurchaseList";
 import { FETCH_ERROR } from "./constants";
 
 function UserInfo() {
@@ -45,7 +45,7 @@ function UserInfo() {
           </p>
         </div>
       </div>
-      <PurchasesList userId={userId} />
+      <PurchaseList userId={userId} itemsPerPage={3} />
     </>
   );
 }
