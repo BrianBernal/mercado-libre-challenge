@@ -195,7 +195,12 @@ const purchases: IPurchaseResponse = {
 };
 
 function purchasesMockFetch(itemsPerPage: number) {
-  let response = {};
+  let response = {
+    data: [] as typeof purchases.data,
+    limit: 0,
+    offset: 0,
+    total: 0,
+  };
   if (purchases.data.length >= itemsPerPage && itemsPerPage >= 0) {
     response = {
       ...purchases,

@@ -45,7 +45,7 @@ function PurchaseDetail({
         <img className="card__image" src={imageSrc} alt="Product Image" />
         <div className="card__details">
           <div className="card__header">
-            <h3 className="card__title">{sellerName}</h3>
+            <h3 className="card__title">Vendedor: {sellerName}</h3>
             <p className="card__purchase-id">ID: {purchaseId}</p>
           </div>
           <div className="card__info">
