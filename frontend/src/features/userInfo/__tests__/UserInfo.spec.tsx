@@ -17,6 +17,7 @@ afterEach(() => {
 
 describe("<UserInfo /> happy paths", () => {
   it("should render user Info", () => {
+    userMockFetch();
     render(<UserInfo />);
   });
 

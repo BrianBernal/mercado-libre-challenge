@@ -57,3 +57,13 @@ describe("<PurchaseList /> happy paths", () => {
     });
   });
 });
+
+describe("<PurchaseList /> UNhappy paths", () => {
+  it("should render default error", async () => {
+    fetchMocker.mockReject();
+    const { getByText } = render(<PurchaseList itemsPerPage={1} userId="1" />);
+    await waitFor(() => {
+      expect(getByText(DEFAULT_ERROR)).toBeInTheDocument();
+    });
+  });
+});

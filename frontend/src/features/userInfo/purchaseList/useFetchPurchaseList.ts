@@ -43,6 +43,7 @@ function useFetchPurchaseList(
         setLoading(false);
       })
       .catch(() => {
+        setLoading(false);
         setError(DEFAULT_ERROR);
       });
   }, [abortController, itemsPerPage, page, userId]);
