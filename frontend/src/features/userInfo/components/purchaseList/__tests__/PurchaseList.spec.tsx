@@ -3,8 +3,8 @@ import "@testing-library/jest-dom";
 import { cleanup, render, waitFor } from "@testing-library/react";
 
 // components
+import { DEFAULT_ERROR } from "../hooks/useFetchPurchaseList";
 import PurchaseList from "../PurchaseList";
-import { DEFAULT_ERROR } from "../useFetchPurchaseList";
 
 // mock api
 import { purchasesMockFetch } from "./purchasesMockFetch";

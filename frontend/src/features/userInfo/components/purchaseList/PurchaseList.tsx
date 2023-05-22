@@ -6,16 +6,16 @@ import ReactPaginate from "react-paginate";
 import "./purchaseList.scss";
 
 // hooks
-import useFetchPurchaseList from "./useFetchPurchaseList";
+import useFetchPurchaseList from "./hooks/useFetchPurchaseList";
 
 // utils
 import { formatNumber } from "@/utils/formatValues";
 import { INITIAL_MODAL_DETAIL_VALUES } from "./constants";
 
 // components
-import RowItem from "./rowItem/RowItem";
 import Modal from "@/components/modal/Modal";
-import PurchaseDetail from "./purchaseDetail/PurchaseDetail";
+import RowItem from "./comopnents/rowItem/RowItem";
+import PurchaseDetail from "./comopnents/purchaseDetail/PurchaseDetail";
 
 function PurchaseList({
   userId,
