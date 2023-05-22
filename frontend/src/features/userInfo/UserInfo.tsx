@@ -6,8 +6,8 @@ import useFetchUserRestrictions from "./hooks/useFetchUserRestrictions";
 import "./userInfo.scss";
 
 // components
-import PurchaseList from "./purchaseList/PurchaseList";
 import { FETCH_ERROR } from "./constants";
+import PurchaseList from "./components/purchaseList/PurchaseList";
 
 function UserInfo() {
   const {
