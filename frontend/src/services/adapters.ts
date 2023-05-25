@@ -2,28 +2,17 @@
 import Ajv from "ajv";
 
 // models
-import { IPurchaseResponse } from "./models/purchasesResponse";
 import {
-  IShipmentStatusResponse,
-  ITransactionStatusResponse,
   IUserResponse,
   TUserRestrictionsResponse,
 } from "./models/userResponses";
-import { IPurchaseList } from "@/models/purchase";
-import {
-  IShipmentStatus,
-  ITransactionStatus,
-  IUser,
-  TUserRestrictions,
-} from "@/models/user";
+import { ICompleteShipmentResponse } from "./models/completePurchasesResponse";
+import { IUser, TUserRestrictions } from "@/models/user";
+import { ICompleteShipmentData } from "@/models/completePurchases";
 
 // schemas
-import {
-  shipmentStatusSchema,
-  userRestrictionsSchema,
-  userSchema,
-} from "./schemas/user";
-import { purchaseListSchema } from "./schemas/purchaseList";
+import { userRestrictionsSchema, userSchema } from "./schemas/user";
+import { completePurchaseListSchema } from "./schemas/completePurchaseList";
 
 const ajv = new Ajv();
 
@@ -40,26 +29,34 @@ function userAdapter(dataResponse: IUserResponse): IUser {
   };
   return adaptedData;
 }
+function completePurchaseListAdapter(
+  dataResponse: ICompleteShipmentResponse
+): ICompleteShipmentData {
+  const isValid = ajv.compile(completePurchaseListSchema)(dataResponse);
+  console.log("is adapter valid:", isValid);
 
-function purchaseListAdapter(dataResponse: IPurchaseResponse): IPurchaseList {
-  const isValid = ajv.compile(purchaseListSchema)(dataResponse);
   if (!isValid) throw Error("Error adapting the api response");
 
   const { data, ...camelCaseKeys } = dataResponse;
-  const adaptedData = {
+  return {
     ...camelCaseKeys,
     data: data.map((purchase) => ({
       ...purchase,
       purchaseId: purchase.purchase_id.toString(),
-      shipmentId: purchase.shipment_id.toString(),
-      transactionId: purchase.transaction_id.toString(),
       seller: {
-        ...purchase.seller,
+        nickname: purchase.seller.nickname,
         id: purchase.seller.id.toString(),
+      },
+      transaction: {
+        shipmentId: purchase.transaction.shipment_id.toString(),
+        status: purchase.transaction.status,
+      },
+      payment: {
+        transactionId: purchase.payment.transaction_id.toString(),
+        status: purchase.payment.status,
       },
     })),
   };
-  return adaptedData;
 }
 
 function userRestrictionsAdapter(
@@ -71,34 +68,4 @@ function userRestrictionsAdapter(
   return dataResponse;
 }
 
-function shipmentStatusAdapter(
-  dataResponse: IShipmentStatusResponse
-): IShipmentStatus {
-  const isValid = ajv.compile(shipmentStatusSchema)(dataResponse);
-  if (!isValid) throw Error("Error adapting the api response");
-
-  return {
-    shipmentId: dataResponse.shipment_id.toString(),
-    status: dataResponse.status,
-  };
-}
-
-function transactionStatusAdapter(
-  dataResponse: ITransactionStatusResponse
-): ITransactionStatus {
-  const isValid = ajv.compile(shipmentStatusSchema)(dataResponse);
-  if (!isValid) throw Error("Error adapting the api response");
-
-  return {
-    transactionId: dataResponse.transaction_id.toString(),
-    status: dataResponse.status,
-  };
-}
-
-export {
-  userAdapter,
-  purchaseListAdapter,
-  userRestrictionsAdapter,
-  shipmentStatusAdapter,
-  transactionStatusAdapter,
-};
+export { userAdapter, userRestrictionsAdapter, completePurchaseListAdapter };

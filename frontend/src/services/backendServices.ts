@@ -1,12 +1,10 @@
 // models
 import {
-  IShipmentStatusResponse,
-  ITransactionStatusResponse,
   IUserResponse,
   TUserRestrictionsResponse,
 } from "./models/userResponses";
-import { IPurchaseResponse } from "./models/purchasesResponse";
-import { IPurchaseList } from "@/models/purchase";
+import { ICompleteShipmentResponse } from "./models/completePurchasesResponse";
+import { ICompleteShipmentData } from "@/models/completePurchases";
 import {
   IFetchPurchasesQueryParams,
   IParsedQueryParams,
@@ -15,9 +13,7 @@ import {
 // utils
 import { SERVICE_URL, fetchJsonFromBackend } from "./httpUtils";
 import {
-  purchaseListAdapter,
-  shipmentStatusAdapter,
-  transactionStatusAdapter,
+  completePurchaseListAdapter,
   userAdapter,
   userRestrictionsAdapter,
 } from "./adapters";
@@ -32,7 +28,7 @@ function fetchUser() {
 function fetchPurchases(
   queryParams: IFetchPurchasesQueryParams,
   abortController?: AbortController
-): Promise<IPurchaseList> {
+): Promise<ICompleteShipmentData> {
   const { userId, limit, page } = queryParams;
   const parsedQueryParams: IParsedQueryParams = {
     userId,
@@ -41,13 +37,13 @@ function fetchPurchases(
   if (limit) parsedQueryParams.limit = limit.toString();
   if (page) parsedQueryParams.page = page.toString();
 
-  return fetchJsonFromBackend<IPurchaseResponse>(
+  return fetchJsonFromBackend<ICompleteShipmentResponse>(
     SERVICE_URL.purchases,
     {
       queryParams: { ...parsedQueryParams },
     },
     abortController
-  ).then(purchaseListAdapter);
+  ).then(completePurchaseListAdapter);
 }
 
 function fetchUserRestrictions(userId: string) {
@@ -56,22 +52,4 @@ function fetchUserRestrictions(userId: string) {
   ).then(userRestrictionsAdapter);
 }
 
-function fetchShipmentStatus(transactionId: string) {
-  return fetchJsonFromBackend<IShipmentStatusResponse>(
-    `${SERVICE_URL.shipments}/${transactionId}`
-  ).then(shipmentStatusAdapter);
-}
-
-function fetchPaymentStatus(transactionId: string) {
-  return fetchJsonFromBackend<ITransactionStatusResponse>(
-    `${SERVICE_URL.payment}/${transactionId}`
-  ).then(transactionStatusAdapter);
-}
-
-export {
-  fetchUser,
-  fetchPurchases,
-  fetchUserRestrictions,
-  fetchShipmentStatus,
-  fetchPaymentStatus,
-};
+export { fetchUser, fetchPurchases, fetchUserRestrictions };

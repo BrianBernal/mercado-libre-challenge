@@ -3,9 +3,9 @@ import { BACKEND_BASE_URL, SERVICE_URL } from "@/services/httpUtils";
 import { fetchMocker } from "@/setupTest/setupVitest";
 
 // models
-import { IPurchaseResponse } from "@/services/models/purchasesResponse";
+import { ICompleteShipmentResponse } from "@/services/models/completePurchasesResponse";
 
-const purchases: IPurchaseResponse = {
+const purchases: ICompleteShipmentResponse = {
   total: 10,
   offset: 0,
   limit: 10,
@@ -25,8 +25,14 @@ const purchases: IPurchaseResponse = {
         id: 4010,
         nickname: "FAROCUDR19",
       },
-      transaction_id: 7010200,
-      shipment_id: 1000010200,
+      transaction: {
+        shipment_id: 1000010200,
+        status: "cancelled",
+      },
+      payment: {
+        transaction_id: 7010200,
+        status: "rejected",
+      },
     },
     {
       purchase_id: 300199,
@@ -43,8 +49,14 @@ const purchases: IPurchaseResponse = {
         id: 4009,
         nickname: "ELECTROMIAMI123",
       },
-      transaction_id: 7010199,
-      shipment_id: 1000010199,
+      transaction: {
+        shipment_id: 1000010199,
+        status: "cancelled",
+      },
+      payment: {
+        transaction_id: 7010199,
+        status: "cancelled",
+      },
     },
     {
       purchase_id: 300198,
@@ -61,8 +73,14 @@ const purchases: IPurchaseResponse = {
         id: 4008,
         nickname: "ABC_MAC",
       },
-      transaction_id: 7010198,
-      shipment_id: 1000010198,
+      transaction: {
+        shipment_id: 1000010198,
+        status: "delivered",
+      },
+      payment: {
+        transaction_id: 7010198,
+        status: "completed",
+      },
     },
     {
       purchase_id: 300197,
@@ -79,8 +97,14 @@ const purchases: IPurchaseResponse = {
         id: 4007,
         nickname: "AIR-VISION",
       },
-      transaction_id: 7010197,
-      shipment_id: 1000010197,
+      transaction: {
+        shipment_id: 1000010197,
+        status: "delivered",
+      },
+      payment: {
+        transaction_id: 7010197,
+        status: "completed",
+      },
     },
     {
       purchase_id: 300196,
@@ -97,8 +121,14 @@ const purchases: IPurchaseResponse = {
         id: 4007,
         nickname: "AIR-VISION",
       },
-      transaction_id: 7010196,
-      shipment_id: 1000010196,
+      transaction: {
+        shipment_id: 1000010196,
+        status: "delivered",
+      },
+      payment: {
+        transaction_id: 7010196,
+        status: "completed",
+      },
     },
     {
       purchase_id: 300195,
@@ -115,8 +145,14 @@ const purchases: IPurchaseResponse = {
         id: 4007,
         nickname: "AIR-VISION",
       },
-      transaction_id: 7010195,
-      shipment_id: 1000010195,
+      transaction: {
+        shipment_id: 1000010195,
+        status: "cancelled",
+      },
+      payment: {
+        transaction_id: 7010195,
+        status: "cancelled",
+      },
     },
     {
       purchase_id: 300194,
@@ -134,8 +170,14 @@ const purchases: IPurchaseResponse = {
         id: 4008,
         nickname: "ABC_MAC",
       },
-      transaction_id: 7010194,
-      shipment_id: 1000010194,
+      transaction: {
+        shipment_id: 1000010194,
+        status: "delivered",
+      },
+      payment: {
+        transaction_id: 7010194,
+        status: "completed",
+      },
     },
     {
       purchase_id: 300193,
@@ -152,8 +194,14 @@ const purchases: IPurchaseResponse = {
         id: 4007,
         nickname: "AIR-VISION",
       },
-      transaction_id: 7010193,
-      shipment_id: 1000010193,
+      transaction: {
+        shipment_id: 1000010193,
+        status: "cancelled",
+      },
+      payment: {
+        transaction_id: 7010193,
+        status: "rejected",
+      },
     },
     {
       purchase_id: 300192,
@@ -170,8 +218,14 @@ const purchases: IPurchaseResponse = {
         id: 4007,
         nickname: "AIR-VISION",
       },
-      transaction_id: 7010192,
-      shipment_id: 1000010192,
+      transaction: {
+        shipment_id: 1000010192,
+        status: "cancelled",
+      },
+      payment: {
+        transaction_id: 7010192,
+        status: "rejected",
+      },
     },
     {
       purchase_id: 300191,
@@ -188,8 +242,14 @@ const purchases: IPurchaseResponse = {
         id: 4006,
         nickname: "JUEGOSSTATION",
       },
-      transaction_id: 7010191,
-      shipment_id: 1000010191,
+      transaction: {
+        shipment_id: 1000010191,
+        status: "delivered",
+      },
+      payment: {
+        transaction_id: 7010191,
+        status: "completed",
+      },
     },
   ],
 };
@@ -218,6 +278,8 @@ function purchasesMockFetch(itemsPerPage: number) {
       if (itemsPerPage > purchases.data.length && itemsPerPage > 0) {
         return { status: 400 };
       }
+      console.log("successful response");
+
       return JSON.stringify(response);
     } else {
       return {

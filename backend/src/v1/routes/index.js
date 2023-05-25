@@ -30,6 +30,39 @@ router.get("/purchases", (req, res) => {
     .catch((error) => res.status(400).send(error));
 });
 
+router.get("/entirePurchases", async (req, res) => {
+  try {
+    const { userId, ...rest } = req.query;
+    const limit = Number(rest.limit) || undefined;
+    const page = Number(rest.page) || undefined;
+
+    const userPurchases = await userService.getUserPurchases(
+      userId,
+      limit,
+      page
+    );
+
+    const completeUserPurchases = await Promise.all(
+      userPurchases.data.map(async (purchase) => {
+        const { shipment_id, transaction_id, ...restPurchase } = purchase;
+        const [transaction, payment] = await Promise.all([
+          userService.getShipment(purchase.shipment_id),
+          userService.getPayment(purchase.transaction_id),
+        ]);
+        return {
+          ...restPurchase,
+          transaction,
+          payment,
+        };
+      })
+    );
+
+    return res.send({ ...userPurchases, data: completeUserPurchases });
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+});
+
 router.get("/shipmentState/:shipmentId", (req, res) => {
   const { shipmentId } = req.params;
   userService

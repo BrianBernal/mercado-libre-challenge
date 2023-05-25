@@ -2,13 +2,13 @@
 import { useCallback, useEffect, useState } from "react";
 
 // models
-import { IPurchaseList } from "@/models/purchase";
+import { ICompleteShipmentData } from "@/models/completePurchases";
 
 // services
 import { fetchPurchases } from "@/services/backendServices";
 import { validatePositiveIntegers } from "@/utils/formatValues";
 
-const INITIAL_STATE: IPurchaseList = {
+const INITIAL_STATE: ICompleteShipmentData = {
   data: [],
   limit: 0,
   offset: 0,
@@ -42,8 +42,10 @@ function useFetchPurchaseList(
         setError(INITIAL_ERROR);
         setLoading(false);
       })
-      .catch(() => {
-        setLoading(false);
+      .catch((error) => {
+        console.log(error.message);
+
+        if (error.message !== "Aborted request.") setLoading(false);
         setError(DEFAULT_ERROR);
       });
   }, [abortController, itemsPerPage, page, userId]);

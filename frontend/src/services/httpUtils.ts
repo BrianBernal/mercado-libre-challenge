@@ -3,7 +3,7 @@ const BACKEND_BASE_URL =
 
 const SERVICE_URL = Object.freeze({
   users: `${BACKEND_BASE_URL}/user`,
-  purchases: `${BACKEND_BASE_URL}/purchases`,
+  purchases: `${BACKEND_BASE_URL}/entirePurchases`,
   restrictions: `${BACKEND_BASE_URL}/restrictions`,
   shipments: `${BACKEND_BASE_URL}/shipmentState`,
   payment: `${BACKEND_BASE_URL}/paymentState`,

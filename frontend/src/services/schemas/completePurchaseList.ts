@@ -1,7 +1,7 @@
 import { JSONSchemaType } from "ajv";
-import { IPurchaseResponse } from "../models/purchasesResponse";
+import { ICompleteShipmentResponse } from "../models/completePurchasesResponse";
 
-const purchaseListSchema: JSONSchemaType<IPurchaseResponse> = {
+const completePurchaseListSchema: JSONSchemaType<ICompleteShipmentResponse> = {
   type: "object",
   properties: {
     data: {
@@ -14,15 +14,29 @@ const purchaseListSchema: JSONSchemaType<IPurchaseResponse> = {
           amount: { type: "number" },
           date: { type: "string" },
           image: { type: "string" },
-          transaction_id: { type: ["number", "string"] },
-          shipment_id: { type: ["number", "string"] },
+          transaction: {
+            type: "object",
+            properties: {
+              shipment_id: { type: ["number", "string"] },
+              status: { type: "string" },
+            },
+            required: ["shipment_id", "status"],
+          },
           cost: {
             type: "object",
             properties: {
-              total: { type: "number" },
               currency: { type: "string" },
+              total: { type: "number" },
             },
-            required: ["total", "currency"],
+            required: ["currency", "currency"],
+          },
+          payment: {
+            type: "object",
+            properties: {
+              transaction_id: { type: ["number", "string"] },
+              status: { type: "string" },
+            },
+            required: ["status", "transaction_id"],
           },
           seller: {
             type: "object",
@@ -35,13 +49,14 @@ const purchaseListSchema: JSONSchemaType<IPurchaseResponse> = {
         },
         required: [
           "amount",
+          "cost",
           "date",
           "image",
+          "payment",
           "purchase_id",
           "seller",
-          "shipment_id",
           "title",
-          "transaction_id",
+          "transaction",
         ],
       },
     },
@@ -49,7 +64,7 @@ const purchaseListSchema: JSONSchemaType<IPurchaseResponse> = {
     offset: { type: "integer" },
     total: { type: "integer" },
   },
-  required: ["total", "offset", "limit", "data"],
+  required: ["data", "limit", "offset", "total"],
 };
 
-export { purchaseListSchema };
+export { completePurchaseListSchema };

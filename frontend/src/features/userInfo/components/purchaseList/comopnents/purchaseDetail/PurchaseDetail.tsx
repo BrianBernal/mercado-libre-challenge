@@ -1,7 +1,3 @@
-// hooks
-import { useFetchPaymentStatus } from "./hooks/useFetchPaymentState";
-import { useFetchShipmentStatus } from "./hooks/useFetchShipmentStatus";
-
 // styles
 import "./purchaseDetail.scss";
 
@@ -12,8 +8,8 @@ interface IPurchaseDetail {
   sellerName: string;
   cost: string;
   quantity: number;
-  shipmentId: string;
-  transactionId: string;
+  shipmentStatus: string;
+  paymentStatus: string;
 }
 function PurchaseDetail({
   purchaseId,
@@ -22,23 +18,9 @@ function PurchaseDetail({
   sellerName,
   cost,
   quantity,
-  shipmentId,
-  transactionId,
+  shipmentStatus,
+  paymentStatus,
 }: IPurchaseDetail) {
-  const { response: shipmentStatusResponse, loading: shipmentStatusLoading } =
-    useFetchShipmentStatus(shipmentId);
-
-  const { response: paymentStatusResponse, loading: paymentStatusLoading } =
-    useFetchPaymentStatus(transactionId);
-
-  const shipmentMessage = shipmentStatusLoading
-    ? "loading..."
-    : shipmentStatusResponse.status;
-
-  const paymentMessage = paymentStatusLoading
-    ? "loading..."
-    : paymentStatusResponse.status;
-
   return (
     <div className="card">
       <div className="card__content">
@@ -55,11 +37,9 @@ function PurchaseDetail({
           </div>
           <div className="card__footer">
             <p className="card__shipment-id">
-              Estado del envío: {shipmentMessage}
+              Estado del envío: {shipmentStatus}
             </p>
-            <p className="card__payment-id">
-              Estado del pago: {paymentMessage}
-            </p>
+            <p className="card__payment-id">Estado del pago: {paymentStatus}</p>
           </div>
         </div>
       </div>

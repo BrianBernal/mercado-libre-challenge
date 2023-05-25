@@ -110,8 +110,8 @@ function PurchaseList({
           date={new Date(selectedPurchase.date).getDate().toString()}
           sellerName={selectedPurchase.seller.nickname}
           quantity={selectedPurchase.amount}
-          shipmentId={selectedPurchase.shipmentId}
-          transactionId={selectedPurchase.transactionId}
+          paymentStatus={selectedPurchase.payment.status}
+          shipmentStatus={selectedPurchase.transaction.status}
           cost={`${selectedPurchase.cost.currency} $ ${formatNumber(
             selectedPurchase.cost.total
           )}`}

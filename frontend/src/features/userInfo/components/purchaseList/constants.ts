@@ -1,8 +1,8 @@
-import { IPurchaseDetail } from "@/models/purchase";
+import { ICompleteShipment } from "@/models/completePurchases";
 
 interface modalDetailState {
   isOpen: boolean;
-  selectedPurchase: IPurchaseDetail;
+  selectedPurchase: ICompleteShipment;
 }
 const INITIAL_MODAL_DETAIL_VALUES: modalDetailState = {
   isOpen: false,
@@ -12,8 +12,6 @@ const INITIAL_MODAL_DETAIL_VALUES: modalDetailState = {
     date: "",
     image: "",
     purchaseId: "",
-    shipmentId: "",
-    transactionId: "",
     cost: {
       currency: "",
       total: 0,
@@ -21,6 +19,14 @@ const INITIAL_MODAL_DETAIL_VALUES: modalDetailState = {
     seller: {
       id: "",
       nickname: "",
+    },
+    payment: {
+      status: "",
+      transactionId: "",
+    },
+    transaction: {
+      shipmentId: "",
+      status: "",
     },
   },
 };
